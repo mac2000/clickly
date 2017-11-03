@@ -9,8 +9,7 @@ Demo
 ```sh
 #!/bin/sh
 
-exec git push
-exec npm run deploy
+exec git push && npm run deploy
 ```
 
 For this to work file must be executable - `chmod +x .git/hooks/post-commit`
