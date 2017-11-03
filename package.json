@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p",
-    "deploy": "npm run build && gh-pages -d dist",
-    "postcommit": "git push && npm run deploy"
+    "deploy": "gh-pages -d dist",
+    "postcommit": "git push && npm run build && npm run deploy"
   },
   "repository": {
     "type": "git",
