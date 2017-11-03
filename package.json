@@ -4,8 +4,8 @@
   "description": "demo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --https",
-    "build": "webpack -p && cp index.html dist",
+    "start": "webpack-dev-server",
+    "build": "webpack -p",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -17,8 +17,10 @@
   "bugs": {
     "url": "https://github.com/mac2000/clickly/issues"
   },
-  "homepage": "https://github.com/mac2000/clickly#readme",
+  "homepage": "https://clickly.marchenko.net.ua/",
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.2.0",
     "gh-pages": "^1.0.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
