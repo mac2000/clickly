@@ -3,6 +3,7 @@ import {dateDaysAgo, dateToAnalyticsFormat, dateFromAnalyticsFormat} from './uti
 console.log('Hello from demo.js')
 
 export const viewId = '160451249'
+
 export const run = () => {
     gapi.client.request({
         path: '/v4/reports:batchGet',

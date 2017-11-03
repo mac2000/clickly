@@ -9,15 +9,30 @@ module.exports = {
         client: './src/client.js',
         demo: './src/demo.js'
     },
-    plugins: [
-        new CleanWebpackPlugin(['dist']),
-        new CopyWebpackPlugin([{from: 'public'}])
-    ],
+
     output: {
         filename: 'clickly.[name].js',
         path: path.join(__dirname, 'dist'),
         library: ['clickly', '[name]'],
         libraryTarget: 'var'
+    },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new CopyWebpackPlugin([{ from: 'public' }])
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['babel-preset-env']
+                    }
+                }
+            }
+        ]
     },
     devServer: {
         https: true,
