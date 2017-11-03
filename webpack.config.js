@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const debug = !process.argv.some(arg => arg === '-p')
 
 module.exports = {
-    devtool: debug ? 'inline-source-map' : false,
+    devtool: debug ? 'inline-source-map' : 'source-map',
     entry: {
         client: './src/client.js'
     },
