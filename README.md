@@ -12,3 +12,5 @@ Demo
 exec git push
 exec npm run deploy
 ```
+
+For this to work file must be executable - `chmod +x .git/hooks/post-commit`
