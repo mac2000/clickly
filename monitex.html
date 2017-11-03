@@ -9,7 +9,7 @@
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
 </head>
 <body>
-    <p class="g-signin2" data-onsuccess="run"></p>
+    <p class="g-signin2" data-onsuccess="init"></p>
     <table id="demo" cellspacing="0" cellpadding="5" border="1" hidden>
         <thead>
             <tr>
@@ -20,83 +20,13 @@
         <tbody></tbody>
     </table>
     <script>
-        function addDays(date, days) {
-            var result = new Date(date);
-            result.setDate(result.getDate() + days);
-            return result;
-        }
-        const viewId = '160451249'
-        function run() {
-            gapi.client.request({
-                path: '/v4/reports:batchGet',
-                root: 'https://analyticsreporting.googleapis.com/',
-                method: 'POST',
-                body: {
-                    reportRequests: [{
-                        pageSize: 10000,
-                        viewId,
-                        dateRanges: [{
-                            startDate: addDays(new Date(), -7).toISOString().split('T').shift(),
-                            endDate: addDays(new Date(), -1).toISOString().split('T').shift()
-                        }],
-                        metrics: [{
-                            expression: 'ga:pageviews'
-                        }],
-                        dimensions: [{
-                            name: 'ga:date'
-                        }]
-                    }]
-                }
-                }).then(response => {
-                    const html = response.result.reports[0].data.rows
-                        .map(row => ({
-                            date: new Date(row.dimensions[0].replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')).toDateString(),
-                            pageviews: parseInt(row.metrics[0].values[0])
-                        }))
-                        .map(item => `<tr><td>${item.date}</td><td>${item.pageviews}</td><tr>`)
-                        .join('')
-                    demo.hidden = false
-                    demo.querySelector('tbody').innerHTML = html
-                }, console.error.bind(console))
+        const s = document.createElement('script');
+        s.src = 'clickly.demo.js?v=' + Date.now();
+        s.async = true;
+        (document.head || document.documentElement).appendChild(s);
 
-            // gapi.client.request({
-            //     path: '/v4/reports:batchGet',
-            //     root: 'https://analyticsreporting.googleapis.com/',
-            //     method: 'POST',
-            //     body: {
-            //         reportRequests: [
-            //         {
-            //             pageSize: 10000,
-            //             viewId: VIEW_ID,
-            //             dateRanges: [
-            //             {
-            //                 startDate: '2017-10-13',
-            //                 endDate: '2017-10-13'
-            //             }
-            //             ],
-            //             metrics: [
-            //             {
-            //                 expression: 'ga:totalEvents'
-            //             }
-            //             ],
-            //             dimensions: [
-            //                 {
-            //                     name: 'ga:eventCategory'
-            //                 },
-            //                 {
-            //                     name: 'ga:eventAction'
-            //                 },
-            //                 {
-            //                     name: 'ga:dimension1'
-            //                 },
-            //                 {
-            //                     name: 'ga:dimension2'
-            //                 }
-            //             ]
-            //         }
-            //         ]
-            //     }
-            //     }).then(displayResults, console.error.bind(console));
+        function init() {
+            clickly.demo.run();
         }
     </script>
     <script src="https://apis.google.com/js/client:platform.js"></script>
