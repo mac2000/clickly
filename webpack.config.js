@@ -21,6 +21,8 @@ module.exports = {
     devServer: {
         https: true,
         open: true,
+        hot: true,
+        inline: true,
         contentBase: [path.join(__dirname, 'public'), path.join(__dirname, 'dist')]
     }
 }

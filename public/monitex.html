@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Monitex</title>
+    <meta name="google-signin-client_id" content="310021255095-q2vq967fic0op44qjschjemo5tl28fn6.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+</head>
+<body>
+    <p class="g-signin2" data-onsuccess="run"></p>
+    <table id="demo" cellspacing="0" cellpadding="5" border="1" hidden>
+        <thead>
+            <tr>
+                <th>date</th>
+                <th>pageviews</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+        const viewId = '160451249'
+        function run() {
+            gapi.client.request({
+                path: '/v4/reports:batchGet',
+                root: 'https://analyticsreporting.googleapis.com/',
+                method: 'POST',
+                body: {
+                    reportRequests: [{
+                        pageSize: 10000,
+                        viewId,
+                        dateRanges: [{
+                            startDate: addDays(new Date(), -7).toISOString().split('T').shift(),
+                            endDate: addDays(new Date(), -1).toISOString().split('T').shift()
+                        }],
+                        metrics: [{
+                            expression: 'ga:pageviews'
+                        }],
+                        dimensions: [{
+                            name: 'ga:date'
+                        }]
+                    }]
+                }
+                }).then(response => {
+                    const html = response.result.reports[0].data.rows
+                        .map(row => ({
+                            date: new Date(row.dimensions[0].replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')).toDateString(),
+                            pageviews: parseInt(row.metrics[0].values[0])
+                        }))
+                        .map(item => `<tr><td>${item.date}</td><td>${item.pageviews}</td><tr>`)
+                        .join('')
+                    demo.hidden = false
+                    demo.querySelector('tbody').innerHTML = html
+                }, console.error.bind(console))
+
+            // gapi.client.request({
+            //     path: '/v4/reports:batchGet',
+            //     root: 'https://analyticsreporting.googleapis.com/',
+            //     method: 'POST',
+            //     body: {
+            //         reportRequests: [
+            //         {
+            //             pageSize: 10000,
+            //             viewId: VIEW_ID,
+            //             dateRanges: [
+            //             {
+            //                 startDate: '2017-10-13',
+            //                 endDate: '2017-10-13'
+            //             }
+            //             ],
+            //             metrics: [
+            //             {
+            //                 expression: 'ga:totalEvents'
+            //             }
+            //             ],
+            //             dimensions: [
+            //                 {
+            //                     name: 'ga:eventCategory'
+            //                 },
+            //                 {
+            //                     name: 'ga:eventAction'
+            //                 },
+            //                 {
+            //                     name: 'ga:dimension1'
+            //                 },
+            //                 {
+            //                     name: 'ga:dimension2'
+            //                 }
+            //             ]
+            //         }
+            //         ]
+            //     }
+            //     }).then(displayResults, console.error.bind(console));
+        }
+    </script>
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+    <!--
+    <button id="signin" hidden>signin</button>
+    <script>
+        const clientId = '310021255095-q2vq967fic0op44qjschjemo5tl28fn6.apps.googleusercontent.com'
+        function authorize(event) {
+            gapi.auth.authorize({
+                client_id: clientId,
+                scope: ['https://www.googleapis.com/auth/analytics.readonly'],
+                immediate: !!event
+            }, response => {
+                if (response.error) {
+                    signin.hidden = false
+                }
+                else {
+                    signin.hidden = true
+                    queryAccounts()
+                }
+            })
+        }
+
+        const queryAccounts = () => gapi.client
+            .load('analytics', 'v3')
+            .then(() => gapi.client.analytics.management.accounts
+                .list()
+                .then(response => response.result.items)
+                .then(items => items.map(item => `<li>${item.name}</li>`).join(''))
+                .then(html => document.body.innerHTML += `<b>Accounts</b><ol>${html}</ol>`)
+            )
+
+        signin.addEventListener('click', authorize)
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=authorize"></script>
+    <script src="client.js?v=2"></script>
+    -->
+</body>
+</html>
