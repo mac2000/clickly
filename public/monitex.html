@@ -19,13 +19,17 @@
         </thead>
         <tbody></tbody>
     </table>
-    <script src="clickly.demo.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js"></script>
     <script>
+        const s = document.createElement('script');
+        s.src = 'clickly.demo.js?v=' + Date.now();
+        s.async = true;
+        (document.head || document.documentElement).appendChild(s);
+
         function init() {
-            clickly.demo.run()
+            clickly.demo.run();
         }
     </script>
+    <script src="https://apis.google.com/js/client:platform.js"></script>
     <!--
     <button id="signin" hidden>signin</button>
     <script>
