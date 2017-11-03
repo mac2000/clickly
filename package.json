@@ -1,0 +1,26 @@
+{
+  "name": "clickly",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --https",
+    "build": "webpack -p && cp index.html dist",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mac2000/clickly.git"
+  },
+  "author": "Alexandr Marchenko <marchenko.alexandr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mac2000/clickly/issues"
+  },
+  "homepage": "https://github.com/mac2000/clickly#readme",
+  "devDependencies": {
+    "gh-pages": "^1.0.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
