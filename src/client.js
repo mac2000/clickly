@@ -9,12 +9,9 @@ const collect = buildCollector(tid, cid, debug)
 document.body.addEventListener('mousedown', collect, true);
 collect()
 
-// TODO: iframer code
-
-/*
-var style = document.createElement('style');
+var style = document.createElement('style')
 style.innerText = 'body.capture *:hover {outline: 2px solid blue}'
-document.head.appendChild(style);
+document.head.appendChild(style)
 
 const capturer = event => {
     event.preventDefault()
@@ -53,4 +50,3 @@ window.addEventListener('message', event => {
 
     }
 }, false)
-*/

@@ -1,0 +1,14 @@
+{
+    "name": "clickly",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "clickly",
+    "homepage_url": "https://clickly.marchenko.net.ua/",
+    "content_scripts": [
+        {
+            "matches": ["https://monitex.com.ua/*"],
+            "all_frames": true,
+            "js": ["inject.js"]
+        }
+    ]
+  }
