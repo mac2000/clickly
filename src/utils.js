@@ -68,3 +68,43 @@ export const buildCollector = (tid, cid, debug) => event => {
         console.table([data])
     }
 }
+
+export const buildIFramerStylesheet = () => {
+    const style = document.createElement('style')
+    style.innerText = 'body.capture *:hover {outline: 2px solid blue}'
+    return style
+}
+
+const capturer = event => {
+    event.preventDefault()
+    event.stopPropagation()
+    if (event.type !== 'click') return
+    const data = {
+        type: 'click',
+        ea: getNodeSelector(event.target),
+        ec: getNodeText(event.target)
+    }
+    parent.postMessage({iframer: {click: data}}, '*')
+}
+
+export const iframer = event => {
+    if (!event || !event.data) return
+    if (!event.data.hasOwnProperty('iframer')) return
+
+    const data = event.data.iframer
+
+    if (data.hasOwnProperty('mode')) {
+        if (data.mode === 'capture') {
+            document.body.classList.add('capture')
+        } else {
+            document.body.classList.remove('capture')
+        }
+        const eventAction = data.mode === 'capture'
+            ? document.body.addEventListener
+            : document.body.removeEventListener
+
+        eventAction('mousedown', capturer, true)
+        eventAction('mouseup', capturer, true)
+        eventAction('click', capturer, true)
+    }
+}

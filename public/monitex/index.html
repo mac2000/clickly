@@ -1,10 +1,9 @@
 <!DOCTYPE  HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
-<title>monite</title>
+<title>monitex</title>
 <script>
 window.addEventListener('message', event => {
-    console.log('iframer catch message', event.data)
     document.querySelector('frame[name="site"]').contentWindow.postMessage(event.data, '*')
     document.querySelector('frame[name="sidebar"]').contentWindow.postMessage(event.data, '*')
 }, false)
