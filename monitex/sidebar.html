@@ -13,7 +13,7 @@
         <p class="g-signin2" data-onsuccess="init"></p>
         <p>Before using app you need to auth with your google account</p>
     </div>
-    <div id="app" hidden>
+    <div id="app" style="display:none">
         <p>
             <label>
                 <input type="radio" name="mode" value="navigation" autocomplete="off" checked />
@@ -43,7 +43,7 @@
         function init() {
             console.log('Google API initialized')
             auth.hidden = true
-            app.hidden = false
+            app.style.display = 'block'
 
             clickly.demo
                 .retrieveEventsFor('https://monitex.com.ua/')
@@ -54,6 +54,7 @@
         }
 
         const onModeChange = event => {
+            console.log('changing mode')
             parent.postMessage({iframer: {mode: event.target.value} }, '*')
             const url = parent.getCurrentUrl()
             console.log(`retrieving events for ${url}`)
