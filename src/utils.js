@@ -32,7 +32,7 @@ const traverseUp = node => {
         items.push(node)
         node = node.parentNode
     } while(node && ['html', 'body'].indexOf(node.tagName.toLowerCase()) === -1)
-    return items
+    return items.reverse()
 }
 
 const getNodeSelector = node => traverseUp(node).map(getNodeSelectorString).join(' > ')
