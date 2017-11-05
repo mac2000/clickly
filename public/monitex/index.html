@@ -7,10 +7,13 @@ window.addEventListener('message', event => {
     document.querySelector('frame[name="site"]').contentWindow.postMessage(event.data, '*')
     document.querySelector('frame[name="sidebar"]').contentWindow.postMessage(event.data, '*')
 }, false)
+function getCurrentUrl() {
+    return document.getElementById('site').src
+}
 </script>
 </head>
 <frameset cols="75%, *">
-<frame src="https://monitex.com.ua/" name="site">
+<frame src="https://monitex.com.ua/" id="site" name="site">
 <frame src="sidebar.html" name="sidebar">
 </frameset>
 </html>

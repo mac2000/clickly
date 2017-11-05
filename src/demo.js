@@ -37,7 +37,8 @@ export const run = () => {
         }, console.error.bind(console))
 }
 
-export const retrieveEvents = () => new Promise((resolve, reject) => {
+export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
+    const daysAgo = 0
     gapi.client.request({
         path: '/v4/reports:batchGet',
         root: 'https://analyticsreporting.googleapis.com/',
@@ -47,8 +48,8 @@ export const retrieveEvents = () => new Promise((resolve, reject) => {
                 pageSize: 10000,
                 viewId,
                 dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1)),
-                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1))
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
+                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
                 }],
                 metrics: [{
                     expression: 'ga:totalEvents'
@@ -56,24 +57,32 @@ export const retrieveEvents = () => new Promise((resolve, reject) => {
                 dimensions: [
                     {name: 'ga:eventCategory'},
                     {name: 'ga:eventAction'},
+                    {name: 'ga:eventLabel'},
                     {name: 'ga:dimension1'},
                     {name: 'ga:dimension2'}
-                ]
+                ],
+                filtersExpression: `ga:eventCategory==${url}`
             }]
     }}).then(response => {
-
         const data = response.result.reports[0].data.rows
             .map(row => ({
-                el: row[0],
-                ec: row[1],
-                cid: parseInt(row[2]),
-                ts: new Date(row[3])
+                ec: row.dimensions[0],
+                ea: row.dimensions[1],
+                el: row.dimensions[2],
+                cid: parseInt(row.dimensions[3]),
+                ts: parseInt(row.dimensions[4])
             }))
             .filter(item => !isNaN(item.cid))
             .sort((a, b) => a.ts - b.ts)
 
         window.data = data
-        console.log(data)
         resolve(data)
     }, reject);
 })
+
+export const handleResponseData = data => {
+    console.table(data)
+    console.log(`retrieved ${data.length} events`)
+    const pageviews = data.filter(i => i.ea === 'view').length
+    console.log(`${pageviews} pageviews`)
+}
