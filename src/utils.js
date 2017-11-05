@@ -38,7 +38,7 @@ const traverseUp = node => {
 const getNodeSelector = node => traverseUp(node).map(getNodeSelectorString).join(' > ')
 
 const getNodeText = node => {
-    const txt = node && node.innerText || node && node.value || ''
+    const txt = node && node.innerText.trim() || node && node.value || ''
     return txt.length > 250 ? txt.substring(0, 247) + '...' : txt
 }
 
