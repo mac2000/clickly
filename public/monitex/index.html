@@ -8,7 +8,7 @@ window.addEventListener('message', event => {
     document.querySelector('frame[name="sidebar"]').contentWindow.postMessage(event.data, '*')
 }, false)
 function getCurrentUrl() {
-    return document.getElementById('site').src
+    return document.getElementById('site').contentWindow.location.href
 }
 </script>
 </head>

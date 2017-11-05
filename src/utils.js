@@ -100,6 +100,15 @@ export const iframer = event => {
     if (data.hasOwnProperty('mode')) {
         if (data.mode === 'capture') {
             document.body.classList.add('capture')
+            if (parent) {
+                parent.postMessage({
+                    iframer: {
+                        load: {
+                            url: window.location.toString()
+                        }
+                    }
+                }, '*')
+            }
         } else {
             document.body.classList.remove('capture')
         }

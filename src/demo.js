@@ -38,7 +38,7 @@ export const run = () => {
 }
 
 export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
-    const daysAgo = 1
+    const daysAgo = 0
     gapi.client.request({
         path: '/v4/reports:batchGet',
         root: 'https://analyticsreporting.googleapis.com/',
@@ -48,7 +48,7 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
                 pageSize: 10000,
                 viewId,
                 dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-2 * daysAgo)),
                     endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
                 }],
                 metrics: [{
@@ -81,13 +81,15 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
 })
 
 export const handleResponseData = data => {
-    // console.table(data)
-    // console.log(`retrieved ${data.length} events`)
-    const pageviews = data.filter(i => i.ea === 'view').length
-    // console.log(`${pageviews} pageviews`)
-    const events = countEvents(data)
-    // console.table(events)
+    if (document.getElementById('info')) {
+        document.getElementById('info').innerHTML = `<ul>
+            <li>${data.length} events</li>
+            <li>${data.filter(i => i.ea === 'view').length} pageviews</li>
+            <li>${data.filter(i => i.ea !== 'view').length} clickls</li>
+        </ul>`
+    }
 
+    const events = countEvents(data)
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
@@ -105,7 +107,9 @@ export const handleResponseData = data => {
         <tbody>${rows}</tbody>
     </table>`
 
-    document.body.innerHTML += table
+    if (document.getElementById('topevents')) {
+        document.getElementById('topevents').innerHTML = table
+    }
 }
 
 export const countEvents = data => {
