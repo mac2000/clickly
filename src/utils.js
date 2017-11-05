@@ -82,8 +82,9 @@ const capturer = event => {
     const data = {
         iframer: {
             click: {
+                ec: window.location.toString(),
                 ea: getNodeSelector(event.target),
-                ec: getNodeText(event.target)
+                el: getNodeText(event.target)
             }
         }
     }
