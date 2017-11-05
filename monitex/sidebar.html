@@ -60,15 +60,6 @@
         const onModeChange = event => {
             console.log('changing mode')
             parent.postMessage({iframer: {mode: event.target.value} }, '*')
-            console.log(`retrieving events for ${url}`)
-            info.innerHTML = 'loading...'
-            topevents.innerHTML = ''
-            clickly.demo
-                .retrieveEventsFor(url)
-                .then(data => {
-                    window.data = data
-                    clickly.demo.handleResponseData(data)
-                })
         }
 
         document.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener('change', onModeChange))
@@ -78,12 +69,22 @@
             if (!event.data.hasOwnProperty('iframer')) return
 
             const data = event.data.iframer
-
+            console.log(data)
             if (data.hasOwnProperty('click')) {
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
             } else if (data.hasOwnProperty('load')) {
                 console.log(`navigated to ${url}`)
                 url = data.load.url
+
+                console.log(`retrieving events for ${url}`)
+                info.innerHTML = 'loading...'
+                topevents.innerHTML = ''
+                clickly.demo
+                    .retrieveEventsFor(url)
+                    .then(data => {
+                        window.data = data
+                        clickly.demo.handleResponseData(data)
+                    })
             }
         }, false)
     </script>
