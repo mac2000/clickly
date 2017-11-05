@@ -80,11 +80,14 @@ const capturer = event => {
     event.stopPropagation()
     if (event.type !== 'click') return
     const data = {
-        type: 'click',
-        ea: getNodeSelector(event.target),
-        ec: getNodeText(event.target)
+        iframer: {
+            click: {
+                ea: getNodeSelector(event.target),
+                ec: getNodeText(event.target)
+            }
+        }
     }
-    parent.postMessage({iframer: {click: data}}, '*')
+    parent.postMessage(data, '*')
 }
 
 export const iframer = event => {

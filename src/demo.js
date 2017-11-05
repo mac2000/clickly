@@ -1,7 +1,5 @@
 import {dateDaysAgo, dateToAnalyticsFormat, dateFromAnalyticsFormat} from './utils'
 
-console.log('Hello from demo.js')
-
 export const viewId = '160451249'
 
 export const run = () => {
