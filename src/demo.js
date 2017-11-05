@@ -38,7 +38,7 @@ export const run = () => {
 }
 
 export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
-    const daysAgo = 0
+    const daysAgo = 1
     gapi.client.request({
         path: '/v4/reports:batchGet',
         root: 'https://analyticsreporting.googleapis.com/',
@@ -85,4 +85,38 @@ export const handleResponseData = data => {
     console.log(`retrieved ${data.length} events`)
     const pageviews = data.filter(i => i.ea === 'view').length
     console.log(`${pageviews} pageviews`)
+    const events = countEvents(data)
+    console.table(events)
+
+    const rows = events
+        .filter(({ea}) => ea !== 'view')
+        .slice(0, 10)
+        .map(({ea, el, count}) => `<tr><th title="${ea}">${el}</th><td>${count}</td></tr>`)
+        .join('')
+
+    const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+        <caption>Top events on this page</caption>
+        <thead>
+            <tr>
+                <th>el</th>
+                <th>count</th>
+            </tr>
+        <thead>
+        <tbody>${rows}</tbody>
+    </table>`
+
+    document.body.innerHTML += table
+}
+
+export const countEvents = data => {
+    const events = data
+        .map(({ec, ea, el}) => ({ec, ea, el}))
+        .reduce((acc, x) => {
+            const key = JSON.stringify(x)
+            acc[key] = (acc[key] || 0) + 1
+            return acc
+        }, {})
+    return Object.keys(events)
+        .map(key => Object.assign(JSON.parse(key), {count: events[key]}))
+        .sort((a, b) => b.count - a.count)
 }
