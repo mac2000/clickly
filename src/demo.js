@@ -124,3 +124,55 @@ export const countEvents = data => {
         .map(key => Object.assign(JSON.parse(key), {count: events[key]}))
         .sort((a, b) => b.count - a.count)
 }
+
+export const handleClick = (data, click) => {
+    const events = data.filter(({ec, ea, el}) => click.ec == ec && click.ea === ea && click.el === el)
+    const users = Object.values(events.map(({cid}) => cid).reduce((acc, x) => Object.assign(acc, {[x]: x}), {}))
+    console.log('EVENTS', events)
+    const items = events.map(event => {
+        event.prev = data.filter(({cid, ts}) => event.cid === cid && event.ts > ts).sort((a, b) => a.ts - b.ts).pop() || {ec: 'exit', ea: 'exit', el: 'exit', cid: event.cid, ts: event.ts + 1}
+        event.next = data.filter(({cid, ts}) => event.cid === cid && event.ts < ts).sort((a, b) => a.ts - b.ts).shift() || {ec: 'exit', ea: 'exit', el: 'exit', cid: event.cid, ts: event.ts + 1}
+        return event
+    })
+    console.log('ITEMS', items)
+    window.items = items
+
+    const prev = countEvents(items.map(({prev}) => prev))
+    const next = countEvents(items.map(({next}) => next))
+    console.log('PREV', prev)
+    console.log('NEXT', next)
+
+
+    if (document.getElementById('info')) {
+        document.getElementById('info').innerHTML = `<ul>
+            <li>${events.length} events</li>
+            <li>${users.length} users</li>
+        </ul>`
+
+        document.getElementById('prev').innerHTML = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+            <caption>Prev events</caption>
+            <thead>
+                <tr>
+                    <th>el</th>
+                    <th>count</th>
+                </tr>
+            <thead>
+            <tbody>${prev
+                .map(({ec, ea, el, count}) => `<tr><td title="${ea === 'view' ? ec : ea}">${ea === 'view' ? ea : el}</td><td>${count}</td></tr>`)
+                .join('')}</tbody>
+        </table>`
+
+        document.getElementById('next').innerHTML = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+        <caption>Next events</caption>
+        <thead>
+            <tr>
+                <th>el</th>
+                <th>count</th>
+            </tr>
+        <thead>
+        <tbody>${prev
+            .map(({ec, ea, el, count}) => `<tr><td title="${ea === 'view' ? ec : ea}">${ea === 'view' ? ea : el}</td><td>${count}</td></tr>`)
+            .join('')}</tbody>
+    </table>`
+    }
+}
