@@ -61,6 +61,8 @@
             console.log('changing mode')
             parent.postMessage({iframer: {mode: event.target.value} }, '*')
             console.log(`retrieving events for ${url}`)
+            info.innerHTML = 'loading...'
+            topevents.innerHTML = ''
             clickly.demo
                 .retrieveEventsFor(url)
                 .then(data => {
@@ -79,7 +81,7 @@
 
             if (data.hasOwnProperty('click')) {
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
-            } else if (data.hasOwnPRoperty('load')) {
+            } else if (data.hasOwnProperty('load')) {
                 console.log(`navigated to ${url}`)
                 url = data.load.url
             }
