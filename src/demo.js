@@ -81,17 +81,17 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
 })
 
 export const handleResponseData = data => {
-    console.table(data)
-    console.log(`retrieved ${data.length} events`)
+    // console.table(data)
+    // console.log(`retrieved ${data.length} events`)
     const pageviews = data.filter(i => i.ea === 'view').length
-    console.log(`${pageviews} pageviews`)
+    // console.log(`${pageviews} pageviews`)
     const events = countEvents(data)
-    console.table(events)
+    // console.table(events)
 
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, el, count}) => `<tr><th title="${ea}">${el}</th><td>${count}</td></tr>`)
+        .map(({ea, el, count}) => `<tr><td title="${ea}">${el}</td><td>${count}</td></tr>`)
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
