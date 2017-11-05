@@ -25,8 +25,12 @@
             </label>
         </p>
         <pre id="evt"></pre>
+        <div id="info"></div>
+        <div id="topevents"></div>
     </div>
     <script>
+        let url = 'https://monitex.com.ua/'
+
         const load = src => new Promise(resolve => {
             const s = document.createElement('script')
             s.src = src
@@ -46,7 +50,7 @@
             app.style.display = 'block'
 
             clickly.demo
-                .retrieveEventsFor('https://monitex.com.ua/')
+                .retrieveEventsFor(url)
                 .then(data => {
                     window.data = data
                     clickly.demo.handleResponseData(data)
@@ -56,7 +60,6 @@
         const onModeChange = event => {
             console.log('changing mode')
             parent.postMessage({iframer: {mode: event.target.value} }, '*')
-            const url = parent.getCurrentUrl()
             console.log(`retrieving events for ${url}`)
             clickly.demo
                 .retrieveEventsFor(url)
@@ -76,6 +79,9 @@
 
             if (data.hasOwnProperty('click')) {
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
+            } else if (data.hasOwnPRoperty('load')) {
+                console.log(`navigated to ${url}`)
+                url = data.load.url
             }
         }, false)
     </script>
