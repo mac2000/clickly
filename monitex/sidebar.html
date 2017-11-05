@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>monitex</title>
 </head>
 <body>
     <h3>Sidebar</h3>
-    <p>
-        <button id="test">Send message</button>
-    </p>
     <p>
         <label>
             <input type="radio" name="mode" value="navigation" checked />
@@ -23,12 +19,6 @@
     </p>
     <pre id="evt"></pre>
     <script>
-        document.getElementById('test').addEventListener('click', event => {
-            event.preventDefault()
-            console.log('sending test message')
-            parent.postMessage('ping', '*')
-        })
-
         const onModeChange = event => parent.postMessage({iframer: {mode: event.target.value} }, '*')
 
         document.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener('change', onModeChange))
@@ -38,7 +28,6 @@
             if (!event.data.hasOwnProperty('iframer')) return
 
             const data = event.data.iframer
-            console.log('sidebar catch message', data)
 
             if (data.hasOwnProperty('click')) {
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
