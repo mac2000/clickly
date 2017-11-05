@@ -53,7 +53,7 @@ export const buildCollector = (tid, cid, debug) => event => {
         cd3: Date.now() + '.' + Math.random().toString(36).substring(5),
         ec: window.location.toString(),
         ea: event ? getNodeSelector(event.target) : 'view',
-        ec: event ? getNodeText(event.target) : document.title
+        el: event ? getNodeText(event.target) : document.title
     }
 
     const url = 'https://www.google-analytics.com/collect?' + buildQueryString(data)
