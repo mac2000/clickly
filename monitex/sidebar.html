@@ -26,6 +26,8 @@
         </p>
         <pre id="evt"></pre>
         <div id="info"></div>
+        <div id="prev"></div>
+        <div id="next"></div>
         <div id="topevents"></div>
     </div>
     <script>
@@ -68,17 +70,18 @@
             if (!event || !event.data) return
             if (!event.data.hasOwnProperty('iframer')) return
 
-            const data = event.data.iframer
-            console.log(data)
-            if (data.hasOwnProperty('click')) {
+            if (event.data.iframer.hasOwnProperty('click')) {
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
-            } else if (data.hasOwnProperty('load')) {
+                clickly.demo.handleClick(data, event.data.iframer.click)
+            } else if (event.data.iframer.hasOwnProperty('load')) {
                 console.log(`navigated to ${url}`)
-                url = data.load.url
+                url = event.data.iframer.load.url
 
                 console.log(`retrieving events for ${url}`)
                 info.innerHTML = 'loading...'
                 topevents.innerHTML = ''
+                prev.innerHTML = ''
+                next.innerHTML = ''
                 clickly.demo
                     .retrieveEventsFor(url)
                     .then(data => {
