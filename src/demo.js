@@ -38,7 +38,7 @@ export const run = () => {
 }
 
 export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
-    const daysAgo = 0
+    const daysAgo = 1
     gapi.client.request({
         path: '/v4/reports:batchGet',
         root: 'https://analyticsreporting.googleapis.com/',
@@ -48,7 +48,7 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
                 pageSize: 10000,
                 viewId,
                 dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-2 * daysAgo)),
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
                     endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
                 }],
                 metrics: [{
