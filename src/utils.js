@@ -42,6 +42,14 @@ const getNodeText = node => {
     return txt.length > 250 ? txt.substring(0, 247) + '...' : txt
 }
 
+const getPageType = () => {
+    if (window.location.pathname === '/') return 'home'
+    else if (document.querySelectorAll('.subcategoryName').length > 0) return 'category'
+    else if (document.querySelectorAll('.product-grid').length > 0 && document.querySelectorAll('.subcategoryName').length === 0) return 'products'
+    else if (document.querySelectorAll('input[name="product_id"]').length > 0) return 'product'
+    else return 'other'
+}
+
 export const buildCollector = (tid, cid, debug) => event => {
     const data = {
         v: 1,
@@ -51,6 +59,7 @@ export const buildCollector = (tid, cid, debug) => event => {
         cd1: cid || '',
         cd2: Date.now(),
         cd3: Date.now() + '.' + Math.random().toString(36).substring(5),
+        cd4: getPageType(),
         ec: window.location.toString(),
         ea: event ? getNodeSelector(event.target) : 'view',
         el: event ? getNodeText(event.target) : document.title

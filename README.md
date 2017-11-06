@@ -19,3 +19,7 @@ Do not forget change `UA-XXXXX-1`
 # TODO:
 
 group by page type
+
+category - document.querySelectorAll('.subcategoryName').length > 0
+products - document.querySelectorAll('.product-grid').length > 0 && document.querySelectorAll('.subcategoryName').length === 0
+product  - document.querySelectorAll('input[name="product_id"]').length > 0
