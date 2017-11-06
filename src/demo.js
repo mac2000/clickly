@@ -61,7 +61,7 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
                     {name: 'ga:dimension1'},
                     {name: 'ga:dimension2'}
                 ],
-                filtersExpression: `ga:eventCategory==${url}`
+                filtersExpression: `ga:eventCategory=re${url}`
             }]
     }}).then(response => {
         const data = response.result.reports[0].data.rows
@@ -126,7 +126,7 @@ export const countEvents = data => {
 }
 
 export const handleClick = (data, click) => {
-    const events = data.filter(({ec, ea, el}) => click.ec == ec && click.ea === ea && click.el === el)
+    const events = data.filter(({ec, ea, el}) => click.ec == ec && ea.indexOf(click.ea) === 0 /* && click.ea === ea && click.el === el */)
     const users = Object.values(events.map(({cid}) => cid).reduce((acc, x) => Object.assign(acc, {[x]: x}), {}))
     console.log('EVENTS', events)
     const items = events.map(event => {
