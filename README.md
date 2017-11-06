@@ -18,6 +18,4 @@ Do not forget change `UA-XXXXX-1`
 
 # TODO:
 
-fix image alt/title issue
-filter events not by === but for startsWith
 group by page type
