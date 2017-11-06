@@ -45,7 +45,7 @@ const getNodeText = node => {
 const getPageType = () => {
     if (window.location.pathname === '/') return 'home'
     else if (document.querySelectorAll('.subcategoryName').length > 0) return 'category'
-    else if (document.querySelectorAll('.product-grid').length > 0 && document.querySelectorAll('.subcategoryName').length === 0) return 'products'
+    else if (document.querySelectorAll('.product-grid').length > 0 && window.location.pathname.split('/').length > 3) return 'products'
     else if (document.querySelectorAll('input[name="product_id"]').length > 0) return 'product'
     else return 'other'
 }
