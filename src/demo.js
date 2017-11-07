@@ -80,6 +80,49 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
     }, reject);
 })
 
+export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve, reject) => {
+    const daysAgo = 1
+    gapi.client.request({
+        path: '/v4/reports:batchGet',
+        root: 'https://analyticsreporting.googleapis.com/',
+        method: 'POST',
+        body: {
+            reportRequests: [{
+                pageSize: 10000,
+                viewId,
+                dateRanges: [{
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
+                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
+                }],
+                metrics: [{
+                    expression: 'ga:totalEvents'
+                }],
+                dimensions: [
+                    {name: 'ga:eventCategory'},
+                    {name: 'ga:eventAction'},
+                    {name: 'ga:eventLabel'},
+                    {name: 'ga:dimension1'},
+                    {name: 'ga:dimension2'}
+                ],
+                filtersExpression: `ga:dimension4==${type}`
+            }]
+    }}).then(response => {
+        const data = response.result.reports[0].data.rows
+            .map(row => ({
+                ec: row.dimensions[0],
+                ea: row.dimensions[1],
+                el: row.dimensions[2],
+                cid: parseInt(row.dimensions[3]),
+                ts: parseInt(row.dimensions[4])
+            }))
+            .filter(item => !isNaN(item.cid))
+            .sort((a, b) => a.ts - b.ts)
+
+        window.data = data
+        resolve(data)
+    }, reject);
+})
+
 export const handleResponseData = data => {
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
