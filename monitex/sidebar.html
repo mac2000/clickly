@@ -76,6 +76,7 @@
             } else if (event.data.iframer.hasOwnProperty('load')) {
                 console.log(`navigated to ${url}`)
                 url = event.data.iframer.load.url
+                cd4 = event.data.iframer.load.cd4
 
                 console.log(`retrieving events for ${url}`)
                 info.innerHTML = 'loading...'
@@ -83,7 +84,8 @@
                 prev.innerHTML = ''
                 next.innerHTML = ''
                 clickly.demo
-                    .retrieveEventsFor(url)
+                    //.retrieveEventsFor(url)
+                    .retrieveEventsForPageType(cd4)
                     .then(data => {
                         window.data = data
                         clickly.demo.handleResponseData(data)
