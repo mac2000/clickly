@@ -61,7 +61,7 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
                     {name: 'ga:dimension1'},
                     {name: 'ga:dimension2'}
                 ],
-                filtersExpression: `ga:eventCategory=${url}`
+                filtersExpression: `ga:eventCategory==${url}`
             }]
     }}).then(response => {
         const data = response.result.reports[0].data.rows
