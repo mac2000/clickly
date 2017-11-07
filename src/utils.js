@@ -93,7 +93,8 @@ const capturer = event => {
             click: {
                 ec: window.location.toString(),
                 ea: getNodeSelector(event.target),
-                el: getNodeText(event.target)
+                el: getNodeText(event.target),
+                cd4: getPageType()
             }
         }
     }
@@ -113,7 +114,8 @@ export const iframer = event => {
                 parent.postMessage({
                     iframer: {
                         load: {
-                            url: window.location.toString()
+                            url: window.location.toString(),
+                            cd4: getPageType()
                         }
                     }
                 }, '*')
