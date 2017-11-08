@@ -84,8 +84,8 @@
                 prev.innerHTML = ''
                 next.innerHTML = ''
                 clickly.demo
-                    .retrieveEventsFor(url)
-                    // .retrieveEventsForPageType(cd4)
+                    // .retrieveEventsFor(url)
+                    .retrieveEventsForPageType(cd4)
                     .then(data => {
                         window.data = data
                         clickly.demo.handleResponseData(data)
