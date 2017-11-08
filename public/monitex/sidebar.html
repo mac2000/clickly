@@ -52,7 +52,8 @@
             app.style.display = 'block'
 
             clickly.demo
-                .retrieveEventsFor(url)
+                // .retrieveEventsFor(url)
+                .retrieveEventsForPageType('home')
                 .then(data => {
                     window.data = data
                     clickly.demo.handleResponseData(data)
