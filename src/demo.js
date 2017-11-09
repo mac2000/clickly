@@ -2,6 +2,7 @@ import {dateDaysAgo, dateToAnalyticsFormat, dateFromAnalyticsFormat} from './uti
 
 export const viewId = '160451249'
 
+// TODO: remove me i'm obsolete
 export const run = () => {
     gapi.client.request({
         path: '/v4/reports:batchGet',
@@ -37,6 +38,7 @@ export const run = () => {
         }, console.error.bind(console))
 }
 
+// TODO: remove me i'm obsolete
 export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
     const daysAgo = 1
     gapi.client.request({
@@ -123,6 +125,19 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
     }, reject);
 })
 
+export const countEvents = data => {
+    const events = data
+        .map(({ec, ea, el}) => ({ec, ea, el}))
+        .reduce((acc, x) => {
+            const key = JSON.stringify(x)
+            acc[key] = (acc[key] || 0) + 1
+            return acc
+        }, {})
+    return Object.keys(events)
+        .map(key => Object.assign(JSON.parse(key), {count: events[key]}))
+        .sort((a, b) => b.count - a.count)
+}
+
 export const handleResponseData = data => {
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
@@ -153,19 +168,6 @@ export const handleResponseData = data => {
     if (document.getElementById('topevents')) {
         document.getElementById('topevents').innerHTML = table
     }
-}
-
-export const countEvents = data => {
-    const events = data
-        .map(({ec, ea, el}) => ({ec, ea, el}))
-        .reduce((acc, x) => {
-            const key = JSON.stringify(x)
-            acc[key] = (acc[key] || 0) + 1
-            return acc
-        }, {})
-    return Object.keys(events)
-        .map(key => Object.assign(JSON.parse(key), {count: events[key]}))
-        .sort((a, b) => b.count - a.count)
 }
 
 export const handleClick = (data, click) => {
