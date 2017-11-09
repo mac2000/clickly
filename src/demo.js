@@ -224,7 +224,9 @@ export const handleClick = (data, click) => {
             <li>${users.length} users</li>
         </ul>`
 
-        document.getElementById('prev').innerHTML = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+        document.getElementById('prev').innerHTML = `<details>
+        <summary>prev (${prev.length})</summary>
+        <table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
             <caption>Prev events</caption>
             <thead>
                 <tr>
@@ -236,9 +238,12 @@ export const handleClick = (data, click) => {
             <tbody>${prev
                 .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
                 .join('')}</tbody>
-        </table>`
+        </table>
+        </details>`
 
-        document.getElementById('next').innerHTML = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+        document.getElementById('next').innerHTML = `<details>
+        <summary>next (${next.length})</summary>
+        <table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
         <caption>Next events</caption>
         <thead>
             <tr>
@@ -250,6 +255,7 @@ export const handleClick = (data, click) => {
         <tbody>${prev
             .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
             .join('')}</tbody>
-    </table>`
+        </table>
+        </details>`
     }
 }
