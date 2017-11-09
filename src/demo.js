@@ -83,7 +83,7 @@ export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promis
 })
 
 export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve, reject) => {
-    const daysAgo = 0
+    const daysAgo = 1
     gapi.client.request({
         path: '/v4/reports:batchGet',
         root: 'https://analyticsreporting.googleapis.com/',
@@ -93,8 +93,10 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
                 pageSize: 10000,
                 viewId,
                 dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
-                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
+                    // startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
+                    // endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1)),
+                    endDate: dateToAnalyticsFormat(dateDaysAgo(0))
                 }],
                 metrics: [{
                     expression: 'ga:totalEvents'
