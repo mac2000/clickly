@@ -125,16 +125,43 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
     }, reject);
 })
 
+export const getLabelsFor = (data, {ec, ea}) => data
+    .filter(item => item.ec === ec && item.ea === ea)
+    .map(item => item.el)
+    .reduce((acc, x) => {
+        if (acc.indexOf(x) === -1) {
+            acc.push(x)
+        }
+        return acc
+    }, [])
+
+export const getUsersFor = (data, {ec, ea}) => data
+    .filter(item => item.ec === ec && item.ea === ea)
+    .map(item => item.cid)
+    .reduce((acc, x) => {
+        if (acc.indexOf(x) === -1) {
+            acc.push(x)
+        }
+        return acc
+    }, [])
+    .length
+
 export const countEvents = data => {
     const events = data
-        .map(({ec, ea, el}) => ({ec, ea, el}))
+        //.map(({ec, ea, el}) => ({ec, ea, el}))
+        .map(({ec, ea}) => ({ec, ea}))
         .reduce((acc, x) => {
             const key = JSON.stringify(x)
             acc[key] = (acc[key] || 0) + 1
             return acc
         }, {})
     return Object.keys(events)
-        .map(key => Object.assign(JSON.parse(key), {count: events[key]}))
+        //.map(key => Object.assign(JSON.parse(key), {count: events[key]}))
+        .map(key => Object.assign(JSON.parse(key), {
+            count: events[key],
+            labels: getLabelsFor(data, JSON.parse(key)),
+            users: getUsersFor(data, JSON.parse(key))
+        }))
         .sort((a, b) => b.count - a.count)
 }
 
@@ -151,15 +178,16 @@ export const handleResponseData = data => {
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, el, count}) => `<tr><td title="${ea}">${el}</td><td>${count}</td></tr>`)
+        .map(({ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
         <caption>Top events on this page</caption>
         <thead>
             <tr>
-                <th>el</th>
+                <th>ea</th>
                 <th>count</th>
+                <th>users</th>
             </tr>
         <thead>
         <tbody>${rows}</tbody>
@@ -198,12 +226,13 @@ export const handleClick = (data, click) => {
             <caption>Prev events</caption>
             <thead>
                 <tr>
-                    <th>el</th>
+                    <th>ea</th>
                     <th>count</th>
+                    <th>users</th>
                 </tr>
             <thead>
             <tbody>${prev
-                .map(({ec, ea, el, count}) => `<tr><td title="${ea === 'view' ? ec : ea}">${ea === 'view' ? ea : el}</td><td>${count}</td></tr>`)
+                .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
                 .join('')}</tbody>
         </table>`
 
@@ -211,12 +240,13 @@ export const handleClick = (data, click) => {
         <caption>Next events</caption>
         <thead>
             <tr>
-                <th>el</th>
+                <th>ea</th>
                 <th>count</th>
+                <th>users</th>
             </tr>
         <thead>
         <tbody>${prev
-            .map(({ec, ea, el, count}) => `<tr><td title="${ea === 'view' ? ec : ea}">${ea === 'view' ? ea : el}</td><td>${count}</td></tr>`)
+            .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
             .join('')}</tbody>
     </table>`
     }
