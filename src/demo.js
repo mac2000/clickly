@@ -201,7 +201,7 @@ export const handleResponseData = data => {
 }
 
 export const handleClick = (data, click) => {
-    const events = data.filter(({ec, ea, el}) => click.ec == ec && ea.indexOf(click.ea) === 0 /* && click.ea === ea && click.el === el */)
+    const events = data.filter(({ea}) => ea.indexOf(click.ea) === 0)
     const users = Object.values(events.map(({cid}) => cid).reduce((acc, x) => Object.assign(acc, {[x]: x}), {}))
     console.log('EVENTS', events)
     const items = events.map(event => {
