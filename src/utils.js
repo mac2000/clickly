@@ -82,7 +82,7 @@ export const buildIFramerStylesheet = () => {
     const style = document.createElement('style')
     style.innerText = `
     body.capture *:hover {outline: 2px solid blue}
-    body.capture .clicklyhighlight {outline: 2px solid yellow}
+    .clicklyhighlight {outline: 2px solid red}
     `
     return style
 }
