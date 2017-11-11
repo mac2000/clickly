@@ -15,10 +15,3 @@ Demo
 ```
 
 Do not forget change `UA-XXXXX-1`
-
-# TODO:
-
-add two buttons, highlight and select
-
-top last clicks
-

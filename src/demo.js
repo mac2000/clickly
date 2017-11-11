@@ -173,6 +173,12 @@ export const handleResponseData = data => {
         .filter(i => i.ea === 'view')
         .map(c => data.filter(i => c.cid === i.cid && c.ts < i.ts).sort((a, b) => a.ts - b.ts).shift())
 
+    const lastAfterView = data
+        .filter(i => i.ea === 'view')
+        .map(c => data.filter(i => c.cid === i.cid && c.ts < i.ts).sort((a, b) => a.ts - b.ts).pop())
+        .filter(c => !!c)
+
+
     const firstClicksAfterView = firstAfterView.filter(c => !!c)
 
     if (document.getElementById('info')) {
@@ -204,8 +210,27 @@ export const handleResponseData = data => {
         <tbody>${rows}</tbody>
     </table>`
 
+
+    const rows2 = countEvents(lastAfterView)
+        .filter(({ea}) => ea !== 'view')
+        .slice(0, 10)
+        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+        .join('')
+
+    const table2 = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
+        <caption>Top last clicks after view</caption>
+        <thead>
+            <tr>
+                <th>ea</th>
+                <th>count</th>
+                <th>users</th>
+            </tr>
+        <thead>
+        <tbody>${rows2}</tbody>
+    </table>`
+
     if (document.getElementById('topevents')) {
-        document.getElementById('topevents').innerHTML = table
+        document.getElementById('topevents').innerHTML = table + table2
     }
 }
 
