@@ -180,7 +180,7 @@ export const handleResponseData = data => {
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
+        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea}</summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small><details></td><td>${count}</td><td>${users}</td></tr>`)
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
@@ -236,7 +236,7 @@ export const handleClick = (data, click) => {
                 </tr>
             <thead>
             <tbody>${prev
-                .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
+                .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea}</summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
                 .join('')}</tbody>
         </table>
         </details>`
@@ -253,7 +253,7 @@ export const handleClick = (data, click) => {
             </tr>
         <thead>
         <tbody>${prev
-            .map(({ec, ea, labels, count, users}) => `<tr><td>${ea}<small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></td><td>${count}</td><td>${users}</td></tr>`)
+            .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea}</summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
             .join('')}</tbody>
         </table>
         </details>`
