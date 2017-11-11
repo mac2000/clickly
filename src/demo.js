@@ -151,7 +151,8 @@ export const getUsersFor = (data, {ec, ea}) => data
 export const countEvents = data => {
     const events = data
         //.map(({ec, ea, el}) => ({ec, ea, el}))
-        .map(({ec, ea}) => ({ec, ea}))
+        //.map(({ec, ea}) => ({ec, ea}))
+        .map(({ea}) => ({ea}))
         .reduce((acc, x) => {
             const key = JSON.stringify(x)
             acc[key] = (acc[key] || 0) + 1
