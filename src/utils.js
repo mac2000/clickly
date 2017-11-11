@@ -80,7 +80,10 @@ export const buildCollector = (tid, cid, debug) => event => {
 
 export const buildIFramerStylesheet = () => {
     const style = document.createElement('style')
-    style.innerText = 'body.capture *:hover {outline: 2px solid blue}'
+    style.innerText = `
+    body.capture *:hover {outline: 2px solid blue}
+    body.capture .clicklyhighlight {outline: 2px solid yellow}
+    `
     return style
 }
 
@@ -130,5 +133,8 @@ export const iframer = event => {
         eventAction('mousedown', capturer, true)
         eventAction('mouseup', capturer, true)
         eventAction('click', capturer, true)
+    } else if (data.hasOwnProperty('highlight')) {
+        document.querySelectorAll('.clicklyhighlight').forEach(el => el.classList.remove('clicklyhighlight'))
+        document.querySelectorAll(data.ea).forEach(el => el.classList.add('clicklyhighlight'))
     }
 }

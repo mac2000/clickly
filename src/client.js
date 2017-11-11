@@ -1,5 +1,7 @@
 import {getTrackingId, getClientId, getDebug, buildCollector, buildIFramerStylesheet, iframer} from './utils'
 
+console.log('HELLO FROM CLICKLY')
+
 // Collector
 
 export const tid = getTrackingId()

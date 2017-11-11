@@ -37,10 +37,7 @@
             const s = document.createElement('script')
             s.src = src
             s.async = true
-            s.onload = () => {
-                console.log(`${src} loaded`)
-                resolve()
-            }
+            s.onload = () => resolve()
             (document.head || document.documentElement).appendChild(s);
         })
 
@@ -61,7 +58,6 @@
         }
 
         const onModeChange = event => {
-            console.log('changing mode')
             parent.postMessage({iframer: {mode: event.target.value} }, '*')
         }
 
@@ -75,11 +71,9 @@
                 document.getElementById('evt').innerHTML = JSON.stringify(event.data.iframer.click, null, 4)
                 clickly.demo.handleClick(data, event.data.iframer.click)
             } else if (event.data.iframer.hasOwnProperty('load')) {
-                console.log(`navigated to ${url}`)
                 url = event.data.iframer.load.url
                 cd4 = event.data.iframer.load.cd4
 
-                console.log(`retrieving events for ${url}`)
                 info.innerHTML = 'loading...'
                 topevents.innerHTML = ''
                 prev.innerHTML = ''
