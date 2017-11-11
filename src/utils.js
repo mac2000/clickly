@@ -110,6 +110,8 @@ export const iframer = event => {
 
     const data = event.data.iframer
 
+    console.log('MESSAGE', data)
+
     if (data.hasOwnProperty('mode')) {
         if (data.mode === 'capture') {
             document.body.classList.add('capture')

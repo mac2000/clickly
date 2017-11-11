@@ -217,6 +217,7 @@ export const highlight = ea => {
             }
         }
     }
+    console.log('send message', data)
     parent.postMessage(data, '*')
 }
 
