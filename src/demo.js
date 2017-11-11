@@ -189,7 +189,7 @@ export const handleResponseData = data => {
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button>click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
@@ -217,26 +217,25 @@ export const highlight = ea => {
             }
         }
     }
-    console.log('send message', data)
     parent.postMessage(data, '*')
+}
+
+export const click = ea => {
+    handleClick(data, {ea})
 }
 
 export const handleClick = (data, click) => {
     const events = data.filter(({ea}) => ea.indexOf(click.ea) === 0)
     const users = Object.values(events.map(({cid}) => cid).reduce((acc, x) => Object.assign(acc, {[x]: x}), {}))
-    console.log('EVENTS', events)
     const items = events.map(event => {
         event.prev = data.filter(({cid, ts}) => event.cid === cid && event.ts > ts).sort((a, b) => a.ts - b.ts).pop() || {ec: 'exit', ea: 'exit', el: 'exit', cid: event.cid, ts: event.ts + 1}
         event.next = data.filter(({cid, ts}) => event.cid === cid && event.ts < ts).sort((a, b) => a.ts - b.ts).shift() || {ec: 'exit', ea: 'exit', el: 'exit', cid: event.cid, ts: event.ts + 1}
         return event
     })
-    console.log('ITEMS', items)
     window.items = items
 
     const prev = countEvents(items.map(({prev}) => prev))
     const next = countEvents(items.map(({next}) => next))
-    console.log('PREV', prev)
-    console.log('NEXT', next)
 
 
     if (document.getElementById('info')) {
