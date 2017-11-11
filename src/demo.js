@@ -95,7 +95,7 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
                 dateRanges: [{
                     // startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
                     // endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-2)),
+                    startDate: dateToAnalyticsFormat(dateDaysAgo(-8)),
                     endDate: dateToAnalyticsFormat(dateDaysAgo(0))
                 }],
                 metrics: [{
