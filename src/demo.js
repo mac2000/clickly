@@ -169,18 +169,21 @@ export const countEvents = data => {
 }
 
 export const handleResponseData = data => {
+    const firstAfterView = data
+        .filter(i => i.ea === 'view')
+        .map(c => data.filter(i => c.cid === i.cid && c.ts < i.ts).sort((a, b) => a.ts - b.ts).shift())
+
+    const firstClicksAfterView = firstAfterView.filter(c => !!c)
+
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
             <li>${data.length} events</li>
             <li>${data.filter(i => i.ea === 'view').length} pageviews</li>
             <li>${data.filter(i => i.ea !== 'view').length} clickls</li>
+            <li>${firstClicksAfterView.length} first clicks</li>
+            <li>${firstAfterView.length - firstClicksAfterView.length} exits</li>
         </ul>`
     }
-
-    const firstClicksAfterView = data
-        .filter(i => i.ea === 'view')
-        .map(c => data.filter(i => c.cid === i.cid && c.ts < i.ts).sort((a, b) => a.ts - b.ts).shift())
-        .filter(c => !!c)
 
     const events = countEvents(firstClicksAfterView)
     const rows = events
