@@ -176,7 +176,12 @@ export const handleResponseData = data => {
         </ul>`
     }
 
-    const events = countEvents(data)
+    const firstClicksAfterView = data
+        .filter(i => i.ea === 'view')
+        .map(c => data.filter(i => c.cid === i.cid && c.ts < i.ts).sort((a, b) => a.ts - b.ts).shift())
+        .filter(c => !!c)
+
+    const events = countEvents(firstClicksAfterView)
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
@@ -184,7 +189,7 @@ export const handleResponseData = data => {
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
-        <caption>Top events on this page</caption>
+        <caption>Top first clicks after view</caption>
         <thead>
             <tr>
                 <th>ea</th>
