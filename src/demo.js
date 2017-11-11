@@ -127,8 +127,8 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
     }, reject);
 })
 
-export const getLabelsFor = (data, {ec, ea}) => data
-    .filter(item => item.ec === ec && item.ea === ea)
+export const getLabelsFor = (data, {/*ec,*/ ea}) => data
+    .filter(item => /*item.ec === ec &&*/ item.ea === ea)
     .map(item => item.el)
     .reduce((acc, x) => {
         if (acc.indexOf(x) === -1) {
@@ -137,8 +137,8 @@ export const getLabelsFor = (data, {ec, ea}) => data
         return acc
     }, [])
 
-export const getUsersFor = (data, {ec, ea}) => data
-    .filter(item => item.ec === ec && item.ea === ea)
+export const getUsersFor = (data, {/*ec,*/ ea}) => data
+    .filter(item => /*item.ec === ec &&*/ item.ea === ea)
     .map(item => item.cid)
     .reduce((acc, x) => {
         if (acc.indexOf(x) === -1) {
