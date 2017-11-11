@@ -256,7 +256,7 @@ export const handleClick = (data, click) => {
                 </tr>
             <thead>
             <tbody>${prev
-                .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea}</summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+                .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
                 .join('')}</tbody>
         </table>
         </details>`
@@ -273,7 +273,7 @@ export const handleClick = (data, click) => {
             </tr>
         <thead>
         <tbody>${prev
-            .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea}</summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+            .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
             .join('')}</tbody>
         </table>
         </details>`
