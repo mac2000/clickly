@@ -136,7 +136,8 @@ export const iframer = event => {
         eventAction('mouseup', capturer, true)
         eventAction('click', capturer, true)
     } else if (data.hasOwnProperty('highlight')) {
+        console.log(`going to highlight "${data.highlight.ea}" ${document.querySelectorAll(data.highlight.ea).length} element(s)`)
         document.querySelectorAll('.clicklyhighlight').forEach(el => el.classList.remove('clicklyhighlight'))
-        document.querySelectorAll(data.ea).forEach(el => el.classList.add('clicklyhighlight'))
+        document.querySelectorAll(data.highlight.ea).forEach(el => el.classList.add('clicklyhighlight'))
     }
 }
