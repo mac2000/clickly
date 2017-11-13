@@ -101,6 +101,7 @@ const capturer = event => {
     event.preventDefault()
     event.stopPropagation()
     if (event.type !== 'click') return
+    document.querySelectorAll('.clicklyhighlight').forEach(el => el.classList.remove('clicklyhighlight'))
     const data = {
         iframer: {
             click: {
