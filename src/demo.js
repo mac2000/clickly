@@ -181,8 +181,16 @@ export const handleResponseData = data => {
 
     const firstClicksAfterView = firstAfterView.filter(c => !!c)
 
+    const totalUsers = data.map(i => i.cid).reduce((acc, x) => {
+        if (acc.indexOf(x) === -1) {
+            acc.push(x)
+        }
+        return acc
+    }, []).length
+
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
+            <li>${totalUsers} users</li>
             <li>${data.length} events</li>
             <li>${data.filter(i => i.ea === 'view').length} pageviews</li>
             <li>${data.filter(i => i.ea !== 'view').length} clickls</li>
