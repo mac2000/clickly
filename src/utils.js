@@ -50,6 +50,14 @@ const getPageType = () => {
     else return 'other'
 }
 
+const inIframe = () => {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+
 export const buildCollector = (tid, cid, debug) => event => {
     const data = {
         v: 1,
@@ -67,10 +75,12 @@ export const buildCollector = (tid, cid, debug) => event => {
 
     const url = 'https://www.google-analytics.com/collect?' + buildQueryString(data)
 
-    if (navigator.sendBeacon) {
-        navigator.sendBeacon(url)
-    } else {
-        fetch(url)
+    if (!inIframe()) {
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(url)
+        } else {
+            fetch(url)
+        }
     }
 
     if (debug) {
