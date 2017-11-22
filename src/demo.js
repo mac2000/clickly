@@ -28,7 +28,7 @@ export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve
                     {name: 'ga:dimension1'},
                     {name: 'ga:dimension2'}
                 ],
-                filtersExpression: `ga:dimension4==${type}`
+                filtersExpression: `ga:dimension4==${type};ga:deviceCategory==desktop`
             }]
     }}).then(response => {
         const data = response.result.reports[0].data.rows
