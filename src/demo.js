@@ -2,86 +2,6 @@ import {dateDaysAgo, dateToAnalyticsFormat, dateFromAnalyticsFormat} from './uti
 
 export const viewId = '160451249'
 
-// TODO: remove me i'm obsolete
-export const run = () => {
-    gapi.client.request({
-        path: '/v4/reports:batchGet',
-        root: 'https://analyticsreporting.googleapis.com/',
-        method: 'POST',
-        body: {
-            reportRequests: [{
-                pageSize: 10000,
-                viewId,
-                dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-7)),
-                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1))
-                }],
-                metrics: [{
-                    expression: 'ga:pageviews'
-                }],
-                dimensions: [{
-                    name: 'ga:date'
-                }]
-            }]
-        }
-        }).then(response => {
-            window.response = response
-            const html = response.result.reports[0].data.rows
-                .map(row => ({
-                    date: dateFromAnalyticsFormat(row.dimensions[0]).toDateString(),
-                    pageviews: parseInt(row.metrics[0].values[0])
-                }))
-                .map(item => `<tr><td>${item.date}</td><td>${item.pageviews}</td><tr>`)
-                .join('')
-            demo.hidden = false
-            demo.querySelector('tbody').innerHTML = html
-        }, console.error.bind(console))
-}
-
-// TODO: remove me i'm obsolete
-export const retrieveEventsFor = (url = 'https://monitex.com.ua/') => new Promise((resolve, reject) => {
-    const daysAgo = 1
-    gapi.client.request({
-        path: '/v4/reports:batchGet',
-        root: 'https://analyticsreporting.googleapis.com/',
-        method: 'POST',
-        body: {
-            reportRequests: [{
-                pageSize: 10000,
-                viewId,
-                dateRanges: [{
-                    startDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo)),
-                    endDate: dateToAnalyticsFormat(dateDaysAgo(-1 * daysAgo))
-                }],
-                metrics: [{
-                    expression: 'ga:totalEvents'
-                }],
-                dimensions: [
-                    {name: 'ga:eventCategory'},
-                    {name: 'ga:eventAction'},
-                    {name: 'ga:eventLabel'},
-                    {name: 'ga:dimension1'},
-                    {name: 'ga:dimension2'}
-                ],
-                filtersExpression: `ga:eventCategory==${url}`
-            }]
-    }}).then(response => {
-        const data = response.result.reports[0].data.rows
-            .map(row => ({
-                ec: row.dimensions[0],
-                ea: row.dimensions[1],
-                el: row.dimensions[2],
-                cid: parseInt(row.dimensions[3]),
-                ts: parseInt(row.dimensions[4])
-            }))
-            .filter(item => !isNaN(item.cid))
-            .sort((a, b) => a.ts - b.ts)
-
-        window.data = data
-        resolve(data)
-    }, reject);
-})
-
 export const retrieveEventsForPageType = (type = 'home') => new Promise((resolve, reject) => {
     const daysAgo = 1
     gapi.client.request({
@@ -136,6 +56,11 @@ export const getLabelsFor = (data, {/*ec,*/ ea}) => data
         }
         return acc
     }, [])
+    .map(label => ({
+        label,
+        count: data.filter(i => i.el === label).length
+    }))
+    .sort((a, b) => b.count - a.count)
 
 export const getUsersFor = (data, {/*ec,*/ ea}) => data
     .filter(item => /*item.ec === ec &&*/ item.ea === ea)
@@ -168,6 +93,9 @@ export const countEvents = data => {
         .sort((a, b) => b.count - a.count)
 }
 
+export let totalUsers = 0
+export let totalClicks = 0
+
 export const handleResponseData = data => {
     const firstAfterView = data
         .filter(i => i.ea === 'view')
@@ -181,19 +109,21 @@ export const handleResponseData = data => {
 
     const firstClicksAfterView = firstAfterView.filter(c => !!c)
 
-    const totalUsers = data.map(i => i.cid).reduce((acc, x) => {
+    totalUsers = data.map(i => i.cid).reduce((acc, x) => {
         if (acc.indexOf(x) === -1) {
             acc.push(x)
         }
         return acc
     }, []).length
 
+    totalClicks = data.filter(i => i.ea !== 'view').length
+
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
             <li>${totalUsers} users</li>
             <li>${data.length} events</li>
             <li>${data.filter(i => i.ea === 'view').length} pageviews</li>
-            <li>${data.filter(i => i.ea !== 'view').length} clickls</li>
+            <li>${totalClicks} clickls</li>
             <li>${firstClicksAfterView.length} first clicks</li>
             <li>${firstAfterView.length - firstClicksAfterView.length} exits</li>
         </ul>`
@@ -203,7 +133,7 @@ export const handleResponseData = data => {
     const rows = events
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x.label} (${x.count})</li>`)}</ul><small></details></td><td>${count} (${(count/totalClicks*100).toFixed(2)}%)</td><td>${users} (${(users/totalUsers*100).toFixed(2)}%)</td></tr>`)
         .join('')
 
     const table = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
@@ -222,7 +152,7 @@ export const handleResponseData = data => {
     const rows2 = countEvents(lastAfterView)
         .filter(({ea}) => ea !== 'view')
         .slice(0, 10)
-        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+        .map(({ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x.label} (${x.count})</li>`)}</ul><small></details></td><td>${count} (${(count/totalClicks*100).toFixed(2)}%)</td><td>${users} (${(users/totalUsers*100).toFixed(2)}%)</td></tr>`)
         .join('')
 
     const table2 = `<table cellpadding="5" cellspacing="0" border="1" style="font-size:80%">
@@ -273,8 +203,8 @@ export const handleClick = (data, click) => {
 
     if (document.getElementById('info')) {
         document.getElementById('info').innerHTML = `<ul>
-            <li>${events.length} events</li>
-            <li>${users.length} users</li>
+            <li>${events.length} events (${(events.length / totalClicks * 100).toFixed(2)}%)</li>
+            <li>${users.length} users (${(events.length / totalUsers * 100).toFixed(2)}%)</li>
         </ul>`
 
         document.getElementById('prev').innerHTML = `<details>
@@ -289,7 +219,7 @@ export const handleClick = (data, click) => {
                 </tr>
             <thead>
             <tbody>${prev
-                .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+                .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x.label} (${x.count})</li>`)}</ul><small></details></td><td>${count} (${(count/totalClicks*100).toFixed(2)}%)</td><td>${users} (${(users/totalUsers*100).toFixed(2)}%)</td></tr>`)
                 .join('')}</tbody>
         </table>
         </details>`
@@ -306,7 +236,7 @@ export const handleClick = (data, click) => {
             </tr>
         <thead>
         <tbody>${prev
-            .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x}</li>`)}</ul><small></details></td><td>${count}</td><td>${users}</td></tr>`)
+            .map(({ec, ea, labels, count, users}) => `<tr><td><details><summary>${ea} <button onclick="clickly.demo.highlight('${ea}')">highlight</button><button onclick="clickly.demo.click('${ea}')">click</button></summary><small><ul>${labels.map(x => `<li>${x.label} (${x.count})</li>`)}</ul><small></details></td><td>${count} (${(count/totalClicks*100).toFixed(2)}%)</td><td>${users} (${(users/totalUsers*100).toFixed(2)}%)</td></tr>`)
             .join('')}</tbody>
         </table>
         </details>`
