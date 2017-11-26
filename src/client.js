@@ -1,6 +1,6 @@
 import {getTrackingId, getClientId, getDebug, buildCollector, buildIFramerStylesheet, iframer} from './utils'
-
-console.log('HELLO FROM CLICKLY')
+//,iframer
+// import iframer from './iframer'
 
 // Collector
 
@@ -17,3 +17,8 @@ collect()
 
 document.head.appendChild(buildIFramerStylesheet())
 window.addEventListener('message', iframer, false)
+
+// iframer.onMessage('ping', () => {
+//     console.log('NEW IFRAMER GOT ping MESSAGE, SENDING PONG RESPONSE')
+//     iframer.postMessage('pong' ,'pong')
+// })

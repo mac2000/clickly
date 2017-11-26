@@ -1,4 +1,12 @@
 import {dateDaysAgo, dateToAnalyticsFormat, dateFromAnalyticsFormat} from './utils'
+import iframer from './iframer'
+
+setTimeout(() => {
+iframer.postMessage('ping')
+}, 1000)
+iframer.onMessage('pong', msg => {
+    console.log('NEW IFRAMER GOT pong MESSAGE', msg)
+})
 
 export const viewId = '160451249'
 

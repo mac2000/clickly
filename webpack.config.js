@@ -7,6 +7,7 @@ module.exports = {
     devtool: debug ? 'inline-source-map' : 'source-map',
     entry: {
         client: './src/client.js',
+        iframer: './src/iframer.js',
         demo: './src/demo.js'
     },
 

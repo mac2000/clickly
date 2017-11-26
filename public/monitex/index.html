@@ -11,6 +11,10 @@ function getCurrentUrl() {
     return document.getElementById('site').contentWindow.location.href
 }
 </script>
+<script src="/clickly.iframer.js"></script>
+<script>
+    clickly.iframer.initMessageBroadcaster()
+</script>
 </head>
 <frameset cols="75%, *">
 <frame src="https://monitex.com.ua/" id="site" name="site">
