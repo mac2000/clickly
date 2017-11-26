@@ -1,9 +1,10 @@
-const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+import path from 'path'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+
 const debug = !process.argv.some(arg => arg === '-p')
 
-module.exports = {
+export default {
     devtool: debug ? 'inline-source-map' : 'source-map',
     entry: {
         client: './src/client.js',

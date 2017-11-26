@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "demo",
   "main": "index.js",
+  "babel": {
+    "presets": ["env"],
+    "plugins": []
+  },
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p",
@@ -23,6 +27,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "clean-webpack-plugin": "^0.1.17",
     "copy-webpack-plugin": "^4.2.3",
     "gh-pages": "^1.1.0",
