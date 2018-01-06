@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {ReportRow} from '../dashboard.component';
+import {ClickMessage, ReportRow} from '../dashboard.component';
 
 @Component({
   selector: 'app-page-stats',
@@ -8,6 +8,7 @@ import {ReportRow} from '../dashboard.component';
 })
 export class PageStatsComponent implements OnChanges {
   @Input() public data: ReportRow[];
+  @Input() public click: ClickMessage | null;
 
   public totalEvents = 0;
   public totalClicks = 0;
@@ -16,11 +17,16 @@ export class PageStatsComponent implements OnChanges {
   public exits = 0;
 
   public ngOnChanges() {
-    this.totalEvents = this.data.length;
-    this.totalClicks = this.data.filter(item => item.eventAction !== 'view').length;
-    this.totalPageViews = this.data.filter(item => item.eventAction === 'view').length;
+    const events = this.click
+      ? <ReportRow[]>this.data
+        .filter(item => this.click && this.click.ea.indexOf(item.eventAction) === 0)
+      : this.data;
 
-    const first = this.data
+    this.totalEvents = events.length;
+    this.totalClicks = events.filter(item => item.eventAction !== 'view').length;
+    this.totalPageViews = events.filter(item => item.eventAction === 'view').length;
+
+    const first = events
       .filter(i => i.eventAction === 'view')
       .map(c => this.data
         .filter(i => c.clientId === i.clientId && c.timestamp < i.timestamp)

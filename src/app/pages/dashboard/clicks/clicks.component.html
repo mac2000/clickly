@@ -17,7 +17,7 @@
     <ng-container *ngFor="let item of events">
       <tr>
         <td class="btn">
-          <button mat-icon-button color="primary" (click)="doHighlight(item)">
+          <button mat-icon-button color="primary" (click)="doHighlight(item)" [disabled]="item.name === 'view'">
             <mat-icon aria-label="Highlight">search</mat-icon>
           </button>
         </td>

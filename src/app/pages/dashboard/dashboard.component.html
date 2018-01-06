@@ -15,7 +15,7 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </mat-card-content>
     </mat-card>
-    <app-page-stats *ngIf="data" [data]="data"></app-page-stats>
+    <app-page-stats *ngIf="data" [data]="data" [click]="click"></app-page-stats>
     <app-user-stats *ngIf="data" [data]="data" [click]="click"></app-user-stats>
     <app-click *ngIf="click" [click]="click"></app-click>
     <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
