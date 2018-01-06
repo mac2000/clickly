@@ -747,7 +747,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/dashboard/clicks/clicks.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-expansion-panel expanded=\"true\">\n  <mat-expansion-panel-header>\n    {{data.events.length}} {{title}}\n  </mat-expansion-panel-header>\n  <mat-slide-toggle [(ngModel)]=\"showPercents\">Show percents</mat-slide-toggle>\n  <mat-slide-toggle *ngIf=\"data.events.length > 10\" [(ngModel)]=\"showTop10\">Show top 10</mat-slide-toggle>\n  <table>\n    <thead>\n    <tr>\n      <th></th>\n      <th>Action</th>\n      <th class=\"num\">Count</th>\n      <th class=\"num\">Users</th>\n    </tr>\n    </thead>\n    <tbody>\n    <ng-container *ngFor=\"let item of events\">\n      <tr>\n        <td class=\"btn\">\n          <button mat-icon-button color=\"primary\" (click)=\"doHighlight(item)\">\n            <mat-icon aria-label=\"Highlight\">search</mat-icon>\n          </button>\n        </td>\n        <td class=\"rtl\" [title]=\"item.name\" (click)=\"labels.toggle()\">\n          {{item.name}}\n        </td>\n        <td class=\"num\">\n          <span *ngIf=\"!showPercents\">{{item.count}}</span>\n          <span *ngIf=\"showPercents\">{{(item.count / data.clicks * 100).toFixed(2)}}%</span>\n        </td>\n        <td class=\"num\">\n          <span *ngIf=\"!showPercents\">{{item.users}}</span>\n          <span *ngIf=\"showPercents\">{{(item.users / data.users * 100).toFixed(2)}}%</span>\n        </td>\n      </tr>\n      <tr>\n        <td colspan=\"4\">\n          <app-labels [labels]=\"item.labels\" [showPercents]=\"showPercents\" [top10]=\"showTop10\" #labels></app-labels>\n        </td>\n      </tr>\n    </ng-container>\n    </tbody>\n  </table>\n</mat-expansion-panel>\n"
+module.exports = "<mat-expansion-panel expanded=\"true\">\n  <mat-expansion-panel-header>\n    {{data.events.length}} {{title}}\n  </mat-expansion-panel-header>\n  <mat-slide-toggle [(ngModel)]=\"showPercents\">Show percents</mat-slide-toggle>\n  <mat-slide-toggle *ngIf=\"data.events.length > 10\" [(ngModel)]=\"showTop10\">Show top 10</mat-slide-toggle>\n  <table>\n    <thead>\n    <tr>\n      <th></th>\n      <th>Action</th>\n      <th class=\"num\">Count</th>\n      <th class=\"num\">Users</th>\n    </tr>\n    </thead>\n    <tbody>\n    <ng-container *ngFor=\"let item of events\">\n      <tr>\n        <td class=\"btn\">\n          <button mat-icon-button color=\"primary\" (click)=\"doHighlight(item)\" [disabled]=\"item.name === 'view'\">\n            <mat-icon aria-label=\"Highlight\">search</mat-icon>\n          </button>\n        </td>\n        <td class=\"rtl\" [title]=\"item.name\" (click)=\"labels.toggle()\">\n          {{item.name}}\n        </td>\n        <td class=\"num\">\n          <span *ngIf=\"!showPercents\">{{item.count}}</span>\n          <span *ngIf=\"showPercents\">{{(item.count / data.clicks * 100).toFixed(2)}}%</span>\n        </td>\n        <td class=\"num\">\n          <span *ngIf=\"!showPercents\">{{item.users}}</span>\n          <span *ngIf=\"showPercents\">{{(item.users / data.users * 100).toFixed(2)}}%</span>\n        </td>\n      </tr>\n      <tr>\n        <td colspan=\"4\">\n          <app-labels [labels]=\"item.labels\" [showPercents]=\"showPercents\" [top10]=\"showTop10\" #labels></app-labels>\n        </td>\n      </tr>\n    </ng-container>\n    </tbody>\n  </table>\n</mat-expansion-panel>\n"
 
 /***/ }),
 
@@ -922,7 +922,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-header>\n  <mat-slider *ngIf=\"navigated\" [formControl]=\"zoom\" title=\"Zoom\" min=\"0.5\" max=\"1\" step=\"0.1\"\n              style=\"margin-right: 20px\"></mat-slider>\n  <mat-slide-toggle *ngIf=\"navigated\" [formControl]=\"capture\">Inspect</mat-slide-toggle>\n</app-header>\n<main>\n  <div class=\"wrapper\" [ngClass]=\"{'responsive': responsive}\">\n    <iframe #frame [src]=\"url\"></iframe>\n  </div>\n  <aside>\n    <app-setup-instructions *ngIf=\"showSetup\" [profile]=\"profile\"></app-setup-instructions>\n    <mat-card *ngIf=\"loading\">\n      <mat-card-title>Loading&hellip;</mat-card-title>\n      <mat-card-content>\n        <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n      </mat-card-content>\n    </mat-card>\n    <app-page-stats *ngIf=\"data\" [data]=\"data\"></app-page-stats>\n    <app-user-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-user-stats>\n    <app-click *ngIf=\"click\" [click]=\"click\"></app-click>\n    <app-prev *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-prev>\n    <app-next *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-next>\n    <app-first *ngIf=\"data\" [data]=\"data\" (highlight)=\"onHighlight($event)\"></app-first>\n    <app-navigation *ngIf=\"navigated\" [data]=\"navigated\"></app-navigation>\n    <app-profile-card *ngIf=\"profile\" [profile]=\"profile\"></app-profile-card>\n  </aside>\n</main>\n"
+module.exports = "<app-header>\n  <mat-slider *ngIf=\"navigated\" [formControl]=\"zoom\" title=\"Zoom\" min=\"0.5\" max=\"1\" step=\"0.1\"\n              style=\"margin-right: 20px\"></mat-slider>\n  <mat-slide-toggle *ngIf=\"navigated\" [formControl]=\"capture\">Inspect</mat-slide-toggle>\n</app-header>\n<main>\n  <div class=\"wrapper\" [ngClass]=\"{'responsive': responsive}\">\n    <iframe #frame [src]=\"url\"></iframe>\n  </div>\n  <aside>\n    <app-setup-instructions *ngIf=\"showSetup\" [profile]=\"profile\"></app-setup-instructions>\n    <mat-card *ngIf=\"loading\">\n      <mat-card-title>Loading&hellip;</mat-card-title>\n      <mat-card-content>\n        <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n      </mat-card-content>\n    </mat-card>\n    <app-page-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-page-stats>\n    <app-user-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-user-stats>\n    <app-click *ngIf=\"click\" [click]=\"click\"></app-click>\n    <app-prev *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-prev>\n    <app-next *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-next>\n    <app-first *ngIf=\"data\" [data]=\"data\" (highlight)=\"onHighlight($event)\"></app-first>\n    <app-navigation *ngIf=\"navigated\" [data]=\"navigated\"></app-navigation>\n    <app-profile-card *ngIf=\"profile\" [profile]=\"profile\"></app-profile-card>\n  </aside>\n</main>\n"
 
 /***/ }),
 
@@ -1401,10 +1401,14 @@ var PageStatsComponent = /** @class */ (function () {
     }
     PageStatsComponent.prototype.ngOnChanges = function () {
         var _this = this;
-        this.totalEvents = this.data.length;
-        this.totalClicks = this.data.filter(function (item) { return item.eventAction !== 'view'; }).length;
-        this.totalPageViews = this.data.filter(function (item) { return item.eventAction === 'view'; }).length;
-        var first = this.data
+        var events = this.click
+            ? this.data
+                .filter(function (item) { return _this.click && _this.click.ea.indexOf(item.eventAction) === 0; })
+            : this.data;
+        this.totalEvents = events.length;
+        this.totalClicks = events.filter(function (item) { return item.eventAction !== 'view'; }).length;
+        this.totalPageViews = events.filter(function (item) { return item.eventAction === 'view'; }).length;
+        var first = events
             .filter(function (i) { return i.eventAction === 'view'; })
             .map(function (c) { return _this.data
             .filter(function (i) { return c.clientId === i.clientId && c.timestamp < i.timestamp; })
@@ -1417,6 +1421,10 @@ var PageStatsComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Array)
     ], PageStatsComponent.prototype, "data", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Object)
+    ], PageStatsComponent.prototype, "click", void 0);
     PageStatsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-page-stats',
