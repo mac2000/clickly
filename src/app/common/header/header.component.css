@@ -1,0 +1,7 @@
+:host ::ng-deep app-logo h1 {
+  color: white;
+}
+
+app-user-card {
+  margin-left: 10px;
+}

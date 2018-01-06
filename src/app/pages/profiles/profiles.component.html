@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="accountName">
+      <mat-header-cell *matHeaderCellDef>Account</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.accountName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="propertyName">
+      <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.propertyName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="profileName">
+      <mat-header-cell *matHeaderCellDef>Profile</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.profileName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="websiteUrl">
+      <mat-header-cell *matHeaderCellDef>URL</mat-header-cell>
+      <mat-cell *matCellDef="let element"><a target="_blank" [href]="element.websiteUrl">{{element.websiteUrl}}</a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             routerLink="/dashboard/{{row.accountId}}/{{row.propertyId}}/{{row.profileId}}"></mat-row>
+  </mat-table>
+</div>

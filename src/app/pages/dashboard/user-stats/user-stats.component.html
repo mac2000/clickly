@@ -1,0 +1,31 @@
+<mat-expansion-panel expanded="true">
+  <mat-expansion-panel-header>
+    {{uniqueUsersCount}} users
+  </mat-expansion-panel-header>
+  <table class="report">
+    <tr>
+      <th></th>
+      <th>min</th>
+      <th>avg</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>Events</th>
+      <td>{{minEvents}}</td>
+      <td>{{avgEvents | number:'1.0-0'}}</td>
+      <td>{{maxEvents}}</td>
+    </tr>
+    <tr>
+      <th>Views</th>
+      <td>{{minViews}}</td>
+      <td>{{avgViews | number:'1.0-0'}}</td>
+      <td>{{maxViews}}</td>
+    </tr>
+    <tr>
+      <th>Clicks</th>
+      <td>{{minClicks}}</td>
+      <td>{{avgClicks | number:'1.0-0'}}</td>
+      <td>{{maxClicks}}</td>
+    </tr>
+  </table>
+</mat-expansion-panel>

@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: var(--deeppurple-800, #000);
+  transform: translateX(7px);
+  margin: 0;
+}
+
+span {
+  color: var(--deeppurple-200, #000);
+  display: inline-block;
+  transform: translateY(-5px);
+}

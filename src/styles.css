@@ -1,0 +1,82 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+:root {
+  --deeppurple-50: #EDE7F6;
+  --deeppurple-100: #D1C4E9;
+  --deeppurple-200: #B39DDB;
+  --deeppurple-300: #9575CD;
+  --deeppurple-400: #7E57C2;
+  --deeppurple-500: #673AB7;
+  --deeppurple-600: #5E35B1;
+  --deeppurple-700: #512DA8;
+  --deeppurple-800: #4527A0;
+  --deeppurple-900: #311B92;
+
+  --deeppurple-A100: #B388FF;
+  --deeppurple-A200: #7C4DFF;
+  --deeppurple-A400: #651FFF;
+  --deeppurple-A700: #6200EA;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: var(--deeppurple-50);
+}
+
+td.num {
+  text-align: right;
+  width: 70px;
+}
+
+th {
+  text-align: left;
+}
+
+th.num {
+  text-align: right;
+}
+
+table.report {
+  width: 100%;
+  border-spacing: 0;
+  empty-cells: hide;
+}
+
+table.report th {
+  text-align: left;
+  font-weight: normal;
+  color: #999;
+  background-color: white;
+}
+
+table.report {
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+table.report tr:hover td {
+  background-color: var(--deeppurple-50);
+}
+
+table.report tr:hover td:hover {
+  background-color: var(--deeppurple-100);
+
+}
+
+table.report td, table.report th {
+  position: relative;
+}
+
+table.report td:hover::after {
+  content: '';
+  position: absolute;
+  background-color: var(--deeppurple-50);
+  left: 0;
+  top: -5000px;
+  height: 10000px;
+  width: 100%;
+  z-index: -1;
+}

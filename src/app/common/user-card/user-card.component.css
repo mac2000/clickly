@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+}
+
+img {
+  width: auto;
+  height: 36px;
+  margin-right: 5px;
+}
+
+button {
+  flex: 1;
+}

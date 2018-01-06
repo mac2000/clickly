@@ -1,0 +1,27 @@
+<mat-expansion-panel expanded="true">
+  <mat-expansion-panel-header>
+    {{totalEvents}} events
+  </mat-expansion-panel-header>
+  <table class="report">
+    <tr>
+      <th>Views</th>
+      <td>{{totalPageViews}}</td>
+      <td>{{(totalPageViews / totalEvents * 100).toFixed(2)}}%</td>
+    </tr>
+    <tr>
+      <th>Clicks</th>
+      <td>{{totalClicks}}</td>
+      <td>{{(totalClicks / totalEvents * 100).toFixed(2)}}%</td>
+    </tr>
+    <tr>
+      <th>First</th>
+      <td>{{firstClicksAfterView}}</td>
+      <td>{{(firstClicksAfterView / totalEvents * 100).toFixed(2)}}%</td>
+    </tr>
+    <tr>
+      <th>Exits</th>
+      <td>{{exits}}</td>
+      <td>{{(exits / totalEvents * 100).toFixed(2)}}%</td>
+    </tr>
+  </table>
+</mat-expansion-panel>

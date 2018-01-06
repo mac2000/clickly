@@ -1,0 +1,14 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    Profile
+  </mat-expansion-panel-header>
+  <p><b>Account</b></p>
+  <p>{{profile.accountName}}<br>{{profile.accountId}}</p>
+  <p><b>Property</b></p>
+  <p>{{profile.propertyName}}<br>{{profile.propertyId}}</p>
+  <p><b>Profile</b></p>
+  <p>{{profile.profileName}}<br>{{profile.profileId}}</p>
+  <mat-action-row>
+    <button mat-button routerLink="/profiles">Other profiles</button>
+  </mat-action-row>
+</mat-expansion-panel>

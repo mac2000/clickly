@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  padding-left: 20px;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+  /*width: 70%;*/
+}
+
+table.report th {
+  font-weight: 300;
+}
+
+th a {
+  color: var(--deeppurple-500, blue);
+}
+
+th i {
+  color: #999;
+}

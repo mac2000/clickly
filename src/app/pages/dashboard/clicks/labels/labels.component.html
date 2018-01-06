@@ -1,0 +1,13 @@
+<table *ngIf="expanded" class="report">
+  <tr *ngFor="let label of top10 ? labels.slice(0, 10) : labels">
+    <th [title]="label.name">{{label.name}}</th>
+    <td class="num">
+      <span *ngIf="!showPercents">{{label.count}}</span>
+      <span *ngIf="showPercents">{{(label.count / count * 100).toFixed(2)}}%</span>
+    </td>
+    <td class="num">
+      <span *ngIf="!showPercents">{{label.users}}</span>
+      <span *ngIf="showPercents">{{(label.users / users * 100).toFixed(2)}}%</span>
+    </td>
+  </tr>
+</table>

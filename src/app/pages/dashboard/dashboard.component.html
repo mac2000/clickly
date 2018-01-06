@@ -1,0 +1,27 @@
+<app-header>
+  <mat-slider *ngIf="navigated" [formControl]="zoom" title="Zoom" min="0.5" max="1" step="0.1"
+              style="margin-right: 20px"></mat-slider>
+  <mat-slide-toggle *ngIf="navigated" [formControl]="capture">Inspect</mat-slide-toggle>
+</app-header>
+<main>
+  <div class="wrapper" [ngClass]="{'responsive': responsive}">
+    <iframe #frame [src]="url"></iframe>
+  </div>
+  <aside>
+    <app-setup-instructions *ngIf="showSetup" [profile]="profile"></app-setup-instructions>
+    <mat-card *ngIf="loading">
+      <mat-card-title>Loading&hellip;</mat-card-title>
+      <mat-card-content>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+    <app-page-stats *ngIf="data" [data]="data"></app-page-stats>
+    <app-user-stats *ngIf="data" [data]="data" [click]="click"></app-user-stats>
+    <app-click *ngIf="click" [click]="click"></app-click>
+    <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
+    <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-next>
+    <app-first *ngIf="data" [data]="data" (highlight)="onHighlight($event)"></app-first>
+    <app-navigation *ngIf="navigated" [data]="navigated"></app-navigation>
+    <app-profile-card *ngIf="profile" [profile]="profile"></app-profile-card>
+  </aside>
+</main>

@@ -1,0 +1,46 @@
+<app-logo></app-logo>
+
+<div *ngIf="!profile.value">
+  <p>
+    <mat-form-field *ngIf="accounts.length">
+      <mat-select placeholder="Account" [formControl]="account">
+        <mat-option *ngFor="let option of accounts" [value]="option">{{option.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-select-loading *ngIf="!accounts.length"></app-select-loading>
+  </p>
+  <p>
+    <mat-form-field *ngIf="account.value && properties.length">
+      <mat-select placeholder="Property" [formControl]="property">
+        <mat-option *ngFor="let option of properties" [value]="option">{{option.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-select-loading *ngIf="account.value && !properties.length"></app-select-loading>
+  </p>
+  <p>
+    <mat-form-field *ngIf="property.value && profiles.length">
+      <mat-select placeholder="Profile" [formControl]="profile">
+        <mat-option *ngFor="let option of profiles" [value]="option">{{option.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-select-loading *ngIf="property.value && !profiles.length"></app-select-loading>
+  </p>
+</div>
+
+<div *ngIf="profile.value && !speed">
+  <p>
+    <mat-spinner style="opacity:.25"></mat-spinner>
+  </p>
+</div>
+
+<mat-card *ngIf="profile.value && speed">
+  <mat-card-header>
+    <mat-card-title>{{profile.value.name}}</mat-card-title>
+    <mat-card-subtitle>{{profile.value.websiteUrl}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [alt]="profile.value.name" [src]="speed.img.src">
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="add()">Add</button>
+    <button mat-button routerLink="/">Cancel</button>
+  </mat-card-actions>
+</mat-card>
