@@ -11,6 +11,7 @@ export class PrevComponent implements OnChanges {
   @Input() public data: ReportRow[];
   @Input() public click: ClickMessage;
   @Output() public highlight: EventEmitter<AggregatedEvent> = new EventEmitter<AggregatedEvent>();
+  @Output() public emulate: EventEmitter<AggregatedEvent> = new EventEmitter<AggregatedEvent>();
 
   public processed: AggregatedData;
 
@@ -24,6 +25,10 @@ export class PrevComponent implements OnChanges {
 
   public onHighlight(event: AggregatedEvent) {
     this.highlight.emit(event);
+  }
+
+  public onEmulate(event: AggregatedEvent) {
+    this.emulate.emit(event);
   }
 
   private findPrev(event: ReportRow): ReportRow {

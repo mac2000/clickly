@@ -1,1 +1,2 @@
-<app-clicks *ngIf="processed" title="first clicks" [data]="processed" (highlight)="onHighlight($event)"></app-clicks>
+<app-clicks *ngIf="processed" title="first clicks" [data]="processed" (highlight)="onHighlight($event)"
+            (emulate)="onEmulate($event)"></app-clicks>

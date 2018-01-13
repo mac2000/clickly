@@ -163,6 +163,22 @@ if (isInFrame()) {
     });
   });
 
+  onMessage('emulate', function (payload) {
+    clearHighlight();
+
+    var el = document.querySelector(payload.selector);
+
+    if (el) {
+      clearHighlight();
+      postMessage('click', {
+        ec: window.location.toString(),
+        ea: getNodeSelector(el),
+        el: getNodeText(el),
+        cd4: typeof window['clicklyGetPageType'] !== 'undefined' ? window['clicklyGetPageType']() : innerGetPageType()
+      });
+    }
+  });
+
   onMessage('capture', function () {
     document.addEventListener('mousedown', onClick, true);
     document.addEventListener('mouseup', onClick, true);

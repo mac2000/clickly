@@ -42,12 +42,12 @@
       <mat-tab-group>
         <mat-tab label="First">
           <div style="padding:24px">
-            <app-first [data]="data" (highlight)="onHighlight($event)"></app-first>
+            <app-first [data]="data" (highlight)="onHighlight($event)" (emulate)="onEmulate($event)"></app-first>
           </div>
         </mat-tab>
         <mat-tab label="Last">
           <div style="padding:24px">
-            <app-last [data]="data" (highlight)="onHighlight($event)"></app-last>
+            <app-last [data]="data" (highlight)="onHighlight($event)" (emulate)="onEmulate($event)"></app-last>
           </div>
         </mat-tab>
         <mat-tab label="Inspect">
@@ -57,9 +57,11 @@
               <p>Turn of inspect mode and select something</p>
             </div>
 
-            <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
+            <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
+                      (emulate)="onEmulate($event)"></app-prev>
             <app-click *ngIf="click" [click]="click"></app-click>
-            <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-next>
+            <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
+                      (emulate)="onEmulate($event)"></app-next>
 
           </div>
         </mat-tab>

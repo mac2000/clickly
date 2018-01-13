@@ -10,6 +10,7 @@ export class ClicksComponent {
   @Input() public data: AggregatedData;
   @Input() public title: string;
   @Output() public highlight: EventEmitter<AggregatedEvent> = new EventEmitter<AggregatedEvent>();
+  @Output() public emulate: EventEmitter<AggregatedEvent> = new EventEmitter<AggregatedEvent>();
 
   public showPercents = false;
   public showTop10 = true;
@@ -22,5 +23,9 @@ export class ClicksComponent {
 
   public doHighlight(item: AggregatedEvent) {
     this.highlight.emit(item);
+  }
+
+  public doEmulate(item: AggregatedEvent) {
+    this.emulate.emit(item);
   }
 }

@@ -97,6 +97,10 @@ export class DashboardComponent implements OnInit {
     this.postMessage('highlight', {selector: event.name});
   }
 
+  public onEmulate(event: AggregatedEvent) {
+    this.postMessage('emulate', {selector: event.name});
+  }
+
   @HostListener('window:message', ['$event'])
   private onMessage(event: MessageEvent) {
     if (event.data && event.data['clickly']) {
