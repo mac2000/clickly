@@ -165,7 +165,7 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__gapi_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_service_worker__["b" /* SwUpdate */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["m" /* MatSnackBar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__gapi_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_service_worker__["b" /* SwUpdate */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatSnackBar */]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -291,20 +291,22 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_9__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_2__app_routing_module__["a" /* AppRoutingModule */],
                 __WEBPACK_IMPORTED_MODULE_13__angular_material__["a" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["i" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["h" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["n" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["k" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["j" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["p" /* MatSnackBarModule */],
                 __WEBPACK_IMPORTED_MODULE_13__angular_material__["b" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["l" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["n" /* MatSliderModule */],
                 __WEBPACK_IMPORTED_MODULE_13__angular_material__["c" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["k" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["f" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["p" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["q" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["e" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["j" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["d" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_13__angular_material__["g" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["m" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["g" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["r" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["s" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["f" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["l" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["e" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["i" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["d" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_13__angular_material__["h" /* MatNativeDateModule */],
                 __WEBPACK_IMPORTED_MODULE_10__gapi_gapi_module__["a" /* GapiModule */].forRoot(__WEBPACK_IMPORTED_MODULE_11__environments_environment__["a" /* environment */].gapi)
             ],
             providers: [
@@ -922,7 +924,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-header>\n  <mat-slider *ngIf=\"navigated\" [formControl]=\"zoom\" title=\"Zoom\" min=\"0.5\" max=\"1\" step=\"0.1\"\n              style=\"margin-right: 20px\"></mat-slider>\n  <mat-slide-toggle *ngIf=\"navigated\" [formControl]=\"capture\">Inspect</mat-slide-toggle>\n</app-header>\n<main>\n  <div class=\"wrapper\" [ngClass]=\"{'responsive': responsive}\">\n    <iframe #frame [src]=\"url\"></iframe>\n  </div>\n  <aside>\n    <app-setup-instructions *ngIf=\"showSetup\" [profile]=\"profile\"></app-setup-instructions>\n    <mat-card *ngIf=\"loading\">\n      <mat-card-title>Loading&hellip;</mat-card-title>\n      <mat-card-content>\n        <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n      </mat-card-content>\n    </mat-card>\n    <app-page-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-page-stats>\n    <app-user-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-user-stats>\n    <app-click *ngIf=\"click\" [click]=\"click\"></app-click>\n    <app-prev *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-prev>\n    <app-next *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-next>\n    <app-first *ngIf=\"data\" [data]=\"data\" (highlight)=\"onHighlight($event)\"></app-first>\n    <app-navigation *ngIf=\"navigated\" [data]=\"navigated\"></app-navigation>\n    <app-profile-card *ngIf=\"profile\" [profile]=\"profile\"></app-profile-card>\n  </aside>\n</main>\n"
+module.exports = "<app-header>\n  <mat-slider *ngIf=\"navigated\" [formControl]=\"zoom\" title=\"Zoom\" min=\"0.5\" max=\"1\" step=\"0.1\"\n              style=\"margin-right: 20px\"></mat-slider>\n  <mat-slide-toggle *ngIf=\"navigated\" [formControl]=\"capture\">Inspect</mat-slide-toggle>\n</app-header>\n<main>\n  <div class=\"wrapper\" [ngClass]=\"{'responsive': responsive}\">\n    <iframe #frame [src]=\"url\"></iframe>\n  </div>\n  <aside>\n    <app-setup-instructions *ngIf=\"showSetup\" [profile]=\"profile\"></app-setup-instructions>\n\n\n    <mat-expansion-panel *ngIf=\"!showSetup\" expanded=\"false\">\n      <mat-expansion-panel-header>\n        Dates\n      </mat-expansion-panel-header>\n      <mat-form-field>\n        <input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"start date\" [formControl]=\"startDate\">\n        <mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>\n        <mat-datepicker #startDatePicker></mat-datepicker>\n      </mat-form-field>\n      <mat-form-field>\n        <input matInput [matDatepicker]=\"endDatePicker\" placeholder=\"end date\" [formControl]=\"endDate\">\n        <mat-datepicker-toggle matSuffix [for]=\"endDatePicker\"></mat-datepicker-toggle>\n        <mat-datepicker #endDatePicker></mat-datepicker>\n      </mat-form-field>\n    </mat-expansion-panel>\n\n\n    <mat-card *ngIf=\"loading\">\n      <mat-card-title>Loading&hellip;</mat-card-title>\n      <mat-card-content>\n        <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n      </mat-card-content>\n    </mat-card>\n    <app-page-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-page-stats>\n    <app-user-stats *ngIf=\"data\" [data]=\"data\" [click]=\"click\"></app-user-stats>\n    <app-click *ngIf=\"click\" [click]=\"click\"></app-click>\n    <app-prev *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-prev>\n    <app-next *ngIf=\"click && data\" [data]=\"data\" [click]=\"click\" (highlight)=\"onHighlight($event)\"></app-next>\n    <app-first *ngIf=\"data\" [data]=\"data\" (highlight)=\"onHighlight($event)\"></app-first>\n    <app-navigation *ngIf=\"navigated\" [data]=\"navigated\"></app-navigation>\n    <app-profile-card *ngIf=\"profile\" [profile]=\"profile\"></app-profile-card>\n  </aside>\n</main>\n"
 
 /***/ }),
 
@@ -962,6 +964,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+var defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 2));
+var defaultEndDate = new Date(new Date().setDate(new Date().getDate() - 1));
 var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(activatedRoute, managementService, gaService, router, zone, changeDetectorRef, applicationRef, sanitizer) {
         var _this = this;
@@ -977,6 +981,8 @@ var DashboardComponent = /** @class */ (function () {
         this.showSetup = false;
         this.zoom = new __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* FormControl */](localStorage.getItem('zoom') || '0.8');
         this.capture = new __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* FormControl */](false);
+        this.startDate = new __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* FormControl */](defaultStartDate);
+        this.endDate = new __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* FormControl */](defaultEndDate);
         this.url = this.sanitizer.bypassSecurityTrustResourceUrl('about:blank');
         activatedRoute.paramMap.pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["e" /* switchMap */])(function (params) {
             var accountId = params.get('accountId') || '';
@@ -998,6 +1004,16 @@ var DashboardComponent = /** @class */ (function () {
         });
         this.capture.valueChanges.subscribe(function (value) {
             _this.postMessage(value ? 'capture' : 'release');
+        });
+        this.startDate.valueChanges.subscribe(function () {
+            if (_this.navigated) {
+                _this.onNavigated(_this.navigated);
+            }
+        });
+        this.endDate.valueChanges.subscribe(function () {
+            if (_this.navigated) {
+                _this.onNavigated(_this.navigated);
+            }
         });
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -1042,8 +1058,8 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.getData = function (data) {
         return this.gaService
             .get({
-            startDate: '8daysAgo',
-            endDate: 'yesterday',
+            startDate: this.startDate.value || defaultStartDate,
+            endDate: this.endDate.value || defaultEndDate,
             id: this.profile.profileId,
             metrics: ['totalEvents'],
             dimensions: ['eventCategory', 'eventAction', 'eventLabel', 'dimension1', 'dimension2'],
@@ -1932,7 +1948,7 @@ var ProfilesComponent = /** @class */ (function () {
         var _this = this;
         this.managementService = managementService;
         this.displayedColumns = ['accountName', 'propertyName', 'profileName', 'websiteUrl'];
-        managementService.getWebSites().subscribe(function (profiles) { return _this.dataSource = new __WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatTableDataSource */](profiles); });
+        managementService.getWebSites().subscribe(function (profiles) { return _this.dataSource = new __WEBPACK_IMPORTED_MODULE_2__angular_material__["q" /* MatTableDataSource */](profiles); });
     }
     ProfilesComponent.prototype.applyFilter = function (value) {
         this.dataSource.filter = value.trim().toLowerCase();
