@@ -1026,6 +1026,7 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.onNavigated = function (data) {
         var _this = this;
         this.navigated = data;
+        this.click = null;
         this.data = null;
         this.loading = true;
         this.showSetup = false;
