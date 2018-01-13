@@ -96,6 +96,7 @@ export class DashboardComponent implements OnInit {
 
   private onNavigated(data: NavigatedMessage) {
     this.navigated = data;
+    this.click = null;
     this.data = null;
     this.loading = true;
     this.showSetup = false;
