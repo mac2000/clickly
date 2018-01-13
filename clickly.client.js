@@ -175,6 +175,8 @@ if (isInFrame()) {
         stopPropagation: function () {
         }
       });
+    } else {
+      console.log('emulate selector not found', payload.selector);
     }
   });
 
