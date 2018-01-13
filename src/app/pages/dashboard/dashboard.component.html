@@ -27,7 +27,8 @@
       </mat-form-field>
     </mat-expansion-panel>
 
-    <app-navigation *ngIf="navigated" [data]="navigated"></app-navigation>
+
+    <app-navigation *ngIf="navigated" [data]="navigated" [events]="data"></app-navigation>
 
 
     <mat-card *ngIf="loading">
@@ -38,8 +39,6 @@
     </mat-card>
 
 
-    <app-page-stats *ngIf="data" [data]="data" [click]="click"></app-page-stats>
-    <app-user-stats *ngIf="data" [data]="data" [click]="click"></app-user-stats>
     <app-click *ngIf="click" [click]="click"></app-click>
     <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
     <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-next>

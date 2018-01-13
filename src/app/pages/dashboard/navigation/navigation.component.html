@@ -9,4 +9,22 @@
   <mat-form-field style="width:100%">
     <input matInput placeholder="Group" [value]="dimension4" readonly>
   </mat-form-field>
+
+  <div *ngIf="events" style="display: flex">
+    <mat-form-field>
+      <input matInput placeholder="users" [value]="users" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="views" [value]="views" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="clicks" [value]="clicks" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="exits" [value]="exits" readonly>
+    </mat-form-field>
+  </div>
 </mat-expansion-panel>

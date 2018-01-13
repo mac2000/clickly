@@ -29,8 +29,6 @@ import {UserCardComponent} from './common/user-card/user-card.component';
 import {HeaderComponent} from './common/header/header.component';
 import {SetupInstructionsComponent} from './common/setup-instructions/setup-instructions.component';
 import {ProfileCardComponent} from './pages/dashboard/profile-card/profile-card.component';
-import {PageStatsComponent} from './pages/dashboard/page-stats/page-stats.component';
-import {UserStatsComponent} from './pages/dashboard/user-stats/user-stats.component';
 import {NavigationComponent} from './pages/dashboard/navigation/navigation.component';
 import {ClicksComponent} from './pages/dashboard/clicks/clicks.component';
 import {FirstComponent} from './pages/dashboard/first/first.component';
@@ -54,8 +52,6 @@ import {ClickComponent} from './pages/dashboard/click/click.component';
     HeaderComponent,
     SetupInstructionsComponent,
     ProfileCardComponent,
-    PageStatsComponent,
-    UserStatsComponent,
     NavigationComponent,
     ClicksComponent,
     FirstComponent,
