@@ -1,44 +1,40 @@
-<mat-expansion-panel expanded="true">
-  <mat-expansion-panel-header>
-    {{data.events.length}} {{title}}
-  </mat-expansion-panel-header>
-  <mat-slide-toggle [(ngModel)]="showPercents">Show percents</mat-slide-toggle>
-  <mat-slide-toggle *ngIf="data.events.length > 10" [(ngModel)]="showTop10">Show top 10</mat-slide-toggle>
-  <table>
-    <thead>
+<p>{{data.events.length}} {{title}}</p>
+<mat-slide-toggle [(ngModel)]="showPercents">Show percents</mat-slide-toggle>
+<mat-slide-toggle *ngIf="data.events.length > 10" [(ngModel)]="showTop10">Show top 10</mat-slide-toggle>
+<table>
+  <thead>
+  <tr>
+    <th></th>
+    <th>Action</th>
+    <th class="num">Count</th>
+    <th class="num">Users</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let item of events">
     <tr>
-      <th></th>
-      <th>Action</th>
-      <th class="num">Count</th>
-      <th class="num">Users</th>
+      <td class="btn">
+        <button mat-icon-button color="primary" (click)="doHighlight(item)" [disabled]="item.name === 'view'">
+          <mat-icon aria-label="Highlight">search</mat-icon>
+        </button>
+      </td>
+      <td class="rtl" [title]="item.name" (click)="labels.toggle()">
+        {{item.name}}
+      </td>
+      <td class="num">
+        <span *ngIf="!showPercents">{{item.count}}</span>
+        <span *ngIf="showPercents">{{(item.count / data.clicks * 100).toFixed(2)}}%</span>
+      </td>
+      <td class="num">
+        <span *ngIf="!showPercents">{{item.users}}</span>
+        <span *ngIf="showPercents">{{(item.users / data.users * 100).toFixed(2)}}%</span>
+      </td>
     </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let item of events">
-      <tr>
-        <td class="btn">
-          <button mat-icon-button color="primary" (click)="doHighlight(item)" [disabled]="item.name === 'view'">
-            <mat-icon aria-label="Highlight">search</mat-icon>
-          </button>
-        </td>
-        <td class="rtl" [title]="item.name" (click)="labels.toggle()">
-          {{item.name}}
-        </td>
-        <td class="num">
-          <span *ngIf="!showPercents">{{item.count}}</span>
-          <span *ngIf="showPercents">{{(item.count / data.clicks * 100).toFixed(2)}}%</span>
-        </td>
-        <td class="num">
-          <span *ngIf="!showPercents">{{item.users}}</span>
-          <span *ngIf="showPercents">{{(item.users / data.users * 100).toFixed(2)}}%</span>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="4">
-          <app-labels [labels]="item.labels" [showPercents]="showPercents" [top10]="showTop10" #labels></app-labels>
-        </td>
-      </tr>
-    </ng-container>
-    </tbody>
-  </table>
-</mat-expansion-panel>
+    <tr>
+      <td colspan="4">
+        <app-labels [labels]="item.labels" [showPercents]="showPercents" [top10]="showTop10" #labels></app-labels>
+      </td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>

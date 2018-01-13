@@ -39,3 +39,6 @@ aside > :last-child {
   margin-bottom: 0;
 }
 
+:host /deep/ .mat-tab-label {
+  min-width: auto;
+}

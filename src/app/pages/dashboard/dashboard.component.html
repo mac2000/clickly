@@ -38,11 +38,32 @@
       </mat-card-content>
     </mat-card>
 
+    <mat-card *ngIf="data" style="padding: 0">
+      <mat-tab-group>
+        <mat-tab label="First">
+          <div style="padding:24px">
+            <app-first [data]="data" (highlight)="onHighlight($event)"></app-first>
+          </div>
+        </mat-tab>
+        <mat-tab label="Last">
+          <div style="padding:24px">TODO</div>
+        </mat-tab>
+        <mat-tab label="Inspect">
+          <div style="padding:24px">
 
-    <app-click *ngIf="click" [click]="click"></app-click>
-    <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
-    <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-next>
-    <app-first *ngIf="data" [data]="data" (highlight)="onHighlight($event)"></app-first>
+            <div *ngIf="!click">
+              <p>Turn of inspect mode and select something</p>
+            </div>
+
+            <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-prev>
+            <app-click *ngIf="click" [click]="click"></app-click>
+            <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"></app-next>
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+
 
     <app-profile-card *ngIf="profile" [profile]="profile"></app-profile-card>
   </aside>

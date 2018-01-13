@@ -16,7 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSliderModule,
-  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatToolbarModule
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import {LogoComponent} from './common/logo/logo.component';
 import {ProfilesService} from './profiles.service';
@@ -85,6 +85,7 @@ import {ClickComponent} from './pages/dashboard/click/click.component';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
     GapiModule.forRoot(environment.gapi)
   ],
   providers: [
