@@ -10,7 +10,7 @@ export class LabelsComponent {
   @Input() public labels: Aggregated[];
   @Input() public showPercents = false;
   @Input() public top10 = true;
-  private expanded = false;
+  public expanded = false;
 
   public get count() {
     return this.labels.map(l => l.count).reduce((a, b) => a + b, 0);

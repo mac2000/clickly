@@ -7,11 +7,12 @@
     "start": "ng serve",
     "start:ssl": "ng serve -ssl",
     "build": "ng build",
+    "build:prod": "ng build -prod -aot -sm -sw --progress=false --build-optimizer=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "gh-pages -d dist",
-    "postcommit": "git push && npm run build && npm run deploy"
+    "postcommit": "git push && npm run build:prod && npm run deploy"
   },
   "repository": {
     "type": "git",

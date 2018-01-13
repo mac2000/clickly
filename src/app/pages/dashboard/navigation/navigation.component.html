@@ -1,7 +1,12 @@
-<mat-expansion-panel>
+<mat-expansion-panel expanded="true">
   <mat-expansion-panel-header>
     Navigated
   </mat-expansion-panel-header>
-  <p><a target="_blank" [title]="title" [href]="url">{{url}}</a></p>
-  <p>{{dimension4}}</p>
+  <mat-form-field style="width:100%">
+    <input matInput placeholder="URL" [value]="url" readonly>
+  </mat-form-field>
+
+  <mat-form-field style="width:100%">
+    <input matInput placeholder="Group" [value]="dimension4" readonly>
+  </mat-form-field>
 </mat-expansion-panel>

@@ -17,13 +17,13 @@ iframe {
 }
 
 .wrapper {
-  flex: 2;
+  flex: 6;
   overflow-y: hidden;
   overflow-x: auto;
 }
 
 aside {
-  flex: 1;
+  flex: 4;
   padding: 5px;
   box-sizing: border-box;
   overflow-y: auto;
