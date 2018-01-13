@@ -164,17 +164,16 @@ if (isInFrame()) {
   });
 
   onMessage('emulate', function (payload) {
-    clearHighlight();
-
     var el = document.querySelector(payload.selector);
 
     if (el) {
-      clearHighlight();
-      postMessage('click', {
-        ec: window.location.toString(),
-        ea: getNodeSelector(el),
-        el: getNodeText(el),
-        cd4: typeof window['clicklyGetPageType'] !== 'undefined' ? window['clicklyGetPageType']() : innerGetPageType()
+      onClick({
+        type: 'click',
+        target: el,
+        preventDefault: function () {
+        },
+        stopPropagation: function () {
+        }
       });
     }
   });
