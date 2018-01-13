@@ -9,6 +9,25 @@
   </div>
   <aside>
     <app-setup-instructions *ngIf="showSetup" [profile]="profile"></app-setup-instructions>
+
+
+    <mat-expansion-panel *ngIf="!showSetup" expanded="false">
+      <mat-expansion-panel-header>
+        Dates
+      </mat-expansion-panel-header>
+      <mat-form-field>
+        <input matInput [matDatepicker]="startDatePicker" placeholder="start date" [formControl]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="endDatePicker" placeholder="end date" [formControl]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+    </mat-expansion-panel>
+
+
     <mat-card *ngIf="loading">
       <mat-card-title>Loading&hellip;</mat-card-title>
       <mat-card-content>

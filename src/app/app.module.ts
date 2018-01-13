@@ -14,9 +14,9 @@ import {GapiModule} from '../gapi/gapi.module';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatExpansionModule, MatIconModule, MatInputModule, MatProgressBarModule,
-  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule,
-  MatToolbarModule
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSliderModule,
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatToolbarModule
 } from '@angular/material';
 import {LogoComponent} from './common/logo/logo.component';
 import {ProfilesService} from './profiles.service';
@@ -87,6 +87,8 @@ import {ClickComponent} from './pages/dashboard/click/click.component';
     MatSidenavModule,
     MatExpansionModule,
     MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     GapiModule.forRoot(environment.gapi)
   ],
   providers: [

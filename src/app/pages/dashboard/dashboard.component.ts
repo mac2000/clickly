@@ -9,6 +9,9 @@ import {and, dimension, GaService} from '../../../gapi/ga/ga.service';
 import {Observable} from 'rxjs/Observable';
 import {AggregatedEvent} from './utils';
 
+const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 2));
+const defaultEndDate = new Date(new Date().setDate(new Date().getDate() - 1));
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,6 +25,8 @@ export class DashboardComponent implements OnInit {
   public profile: GoogleSummaryFlat;
   public zoom = new FormControl(localStorage.getItem('zoom') || '0.8');
   public capture = new FormControl(false);
+  public startDate = new FormControl(defaultStartDate);
+  public endDate = new FormControl(defaultEndDate);
   public data: ReportRow[] | null;
   public click: ClicklyMessage | null;
 
@@ -65,6 +70,18 @@ export class DashboardComponent implements OnInit {
 
     this.capture.valueChanges.subscribe(value => {
       this.postMessage(value ? 'capture' : 'release');
+    });
+
+    this.startDate.valueChanges.subscribe(() => {
+      if (this.navigated) {
+        this.onNavigated(this.navigated);
+      }
+    });
+
+    this.endDate.valueChanges.subscribe(() => {
+      if (this.navigated) {
+        this.onNavigated(this.navigated);
+      }
     });
   }
 
@@ -113,8 +130,8 @@ export class DashboardComponent implements OnInit {
   private getData(data: NavigatedMessage): Observable<ReportRow[]> {
     return this.gaService
       .get({
-        startDate: '8daysAgo',
-        endDate: 'yesterday',
+        startDate: this.startDate.value || defaultStartDate,
+        endDate: this.endDate.value || defaultEndDate,
         id: this.profile.profileId,
         metrics: ['totalEvents'],
         dimensions: ['eventCategory', 'eventAction', 'eventLabel', 'dimension1', 'dimension2'],
