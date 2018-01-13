@@ -46,7 +46,9 @@
           </div>
         </mat-tab>
         <mat-tab label="Last">
-          <div style="padding:24px">TODO</div>
+          <div style="padding:24px">
+            <app-last [data]="data" (highlight)="onHighlight($event)"></app-last>
+          </div>
         </mat-tab>
         <mat-tab label="Inspect">
           <div style="padding:24px">

@@ -36,6 +36,7 @@ import {LabelsComponent} from './pages/dashboard/clicks/labels/labels.component'
 import {PrevComponent} from './pages/dashboard/prev/prev.component';
 import {NextComponent} from './pages/dashboard/next/next.component';
 import {ClickComponent} from './pages/dashboard/click/click.component';
+import {LastComponent} from './pages/dashboard/last/last.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {ClickComponent} from './pages/dashboard/click/click.component';
     LabelsComponent,
     PrevComponent,
     NextComponent,
-    ClickComponent
+    ClickComponent,
+    LastComponent
   ],
   imports: [
     BrowserModule,
