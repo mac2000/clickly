@@ -11,7 +11,7 @@ function clicklyGetPageType() {
   }
 }
 const s = document.createElement('script');
-s.src = 'https://clickly.marchenko.net.ua/client.js?v=' + Date.now();
+s.src = 'https://clickly.marchenko.net.ua/clickly.client.js?v=' + Date.now();
 s.setAttribute('data-clickly-tid', '${profile.propertyId}');
 s.async = true;
 (document.head || document.documentElement).appendChild(s);

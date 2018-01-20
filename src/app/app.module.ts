@@ -14,9 +14,24 @@ import {GapiModule} from '../gapi/gapi.module';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule,
-  MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSliderModule,
-  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule
 } from '@angular/material';
 import {LogoComponent} from './common/logo/logo.component';
 import {ProfilesService} from './profiles.service';
@@ -37,6 +52,7 @@ import {PrevComponent} from './pages/dashboard/prev/prev.component';
 import {NextComponent} from './pages/dashboard/next/next.component';
 import {ClickComponent} from './pages/dashboard/click/click.component';
 import {LastComponent} from './pages/dashboard/last/last.component';
+import {DataService} from "./data.service";
 
 @NgModule({
   declarations: [
@@ -92,7 +108,8 @@ import {LastComponent} from './pages/dashboard/last/last.component';
   ],
   providers: [
     ProfilesService,
-    PreviewsService
+    PreviewsService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
