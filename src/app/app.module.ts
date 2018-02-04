@@ -1,8 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
-
 import {AppComponent} from './app.component';
 import {HomeComponent} from './pages/home/home.component';
 import {SetupComponent} from './pages/setup/setup.component';
@@ -37,7 +35,6 @@ import {LogoComponent} from './common/logo/logo.component';
 import {ProfilesService} from './profiles.service';
 import {RowsComponent} from './common/rows/rows.component';
 import {PreviewsService} from './previews.service';
-import {ServiceWorkerModule} from '@angular/service-worker';
 import {SelectLoadingComponent} from './common/select-loading/select-loading.component';
 import {ProfilesComponent} from './pages/profiles/profiles.component';
 import {UserCardComponent} from './common/user-card/user-card.component';
@@ -52,7 +49,7 @@ import {PrevComponent} from './pages/dashboard/prev/prev.component';
 import {NextComponent} from './pages/dashboard/next/next.component';
 import {ClickComponent} from './pages/dashboard/click/click.component';
 import {LastComponent} from './pages/dashboard/last/last.component';
-import {DataService} from "./data.service";
+import {DataService} from './data.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +77,7 @@ import {DataService} from "./data.service";
   ],
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    // ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
