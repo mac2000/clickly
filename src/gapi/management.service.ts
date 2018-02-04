@@ -34,6 +34,7 @@ export class ManagementService {
   }
 
   private flatifySummary(accounts: GoogleSummary[]): GoogleSummaryFlat[] {
+    console.log('managementService:flatifySummary', accounts);
     return accounts
       .map(account => account.webProperties.map(property => ({
         accountId: account.id,
@@ -45,17 +46,23 @@ export class ManagementService {
         profiles: property.profiles
       })))
       .reduce((a, b) => a.concat(b), [])
-      .map(property => property.profiles.map(profile => ({
-        accountId: property.accountId,
-        accountName: property.accountName,
-        propertyId: property.propertyId,
-        propertyName: property.propertyName,
-        level: property.level,
-        websiteUrl: property.websiteUrl,
-        profileId: profile.id,
-        profileName: profile.name,
-        type: profile.type
-      })))
+      .map(property => {
+        if (!property.profiles) {
+          console.log(`${property.propertyName} has no profiles`);
+          return [];
+        }
+        return property.profiles.map(profile => ({
+          accountId: property.accountId,
+          accountName: property.accountName,
+          propertyId: property.propertyId,
+          propertyName: property.propertyName,
+          level: property.level,
+          websiteUrl: property.websiteUrl,
+          profileId: profile.id,
+          profileName: profile.name,
+          type: profile.type
+        }))
+      })
       .reduce((a, b) => a.concat(b), []);
   }
 
