@@ -59,7 +59,7 @@
 
             <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
                       (emulate)="onEmulate($event)"></app-prev>
-            <app-click *ngIf="click" [click]="click"></app-click>
+            <app-click *ngIf="click" [data]="data" [click]="click"></app-click>
             <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
                       (emulate)="onEmulate($event)"></app-next>
 

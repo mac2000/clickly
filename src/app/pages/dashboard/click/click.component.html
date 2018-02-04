@@ -1,17 +1,35 @@
 <mat-expansion-panel expanded="true">
-  <mat-expansion-panel-header>
+  <mat-expansion-panel-header style="height:48px">
     click info
   </mat-expansion-panel-header>
 
-  <p><b>cd4</b></p>
-  <p>{{click.cd4}}</p>
+  <div *ngIf="click" style="display: flex">
+    <mat-form-field>
+      <input matInput placeholder="Event Action" [value]="click.ea" [title]="click.ea" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="Event Label" [value]="click.el || 'N/A'" [title]="click.el" readonly>
+    </mat-form-field>
+  </div>
 
-  <p><b>category</b></p>
-  <p>{{click.ec}}</p>
+  <div *ngIf="click" style="display: flex">
+    <mat-form-field>
+      <input matInput placeholder="Dimension 4" [value]="click.cd4" [title]="click.cd4" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="Event Category" [value]="click.ec || 'N/A'" [title]="click.ec" readonly>
+    </mat-form-field>
+  </div>
 
-  <p><b>action</b></p>
-  <p>{{click.ea}}</p>
-
-  <p><b>label</b></p>
-  <p>{{click.el}}</p>
+  <div *ngIf="data" style="display: flex">
+    <mat-form-field>
+      <input matInput placeholder="users" [value]="users" readonly>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput placeholder="clicks" [value]="clicks" readonly>
+    </mat-form-field>
+  </div>
 </mat-expansion-panel>
