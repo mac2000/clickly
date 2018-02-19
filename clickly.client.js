@@ -82,7 +82,7 @@ function getNodeSelector(node) {
 }
 
 function getNodeText(node) {
-  const txt = node && node.innerText.trim() || node.getAttribute('alt') || node.getAttribute('title') || node && node.value || '';
+  const txt = node && node.innerText.trim() || node.getAttribute('alt') || node.getAttribute('title') || node.getAttribute('id') || node.getAttribute('name') || node && node.value || '';
   return txt.length > 250 ? txt.substring(0, 247) + '...' : txt;
 }
 
@@ -152,7 +152,7 @@ if (isInFrame()) {
   });
 
   onMessage('zoom', function (payload) {
-    document.body.style.transform = `scale(${payload.value || '1'})`;
+    document.body.style.transform = 'scale(' + (payload.value || '1') + ')';
   });
 
   onMessage('highlight', function (payload) {
