@@ -82,7 +82,7 @@ function getNodeSelector(node) {
 }
 
 function getNodeText(node) {
-  const txt = node && node.innerText.trim() || node.getAttribute('alt') || node.getAttribute('title') || node.getAttribute('id') || node.getAttribute('name') || node && node.value || '';
+  const txt = node && node.innerText.trim() || node.getAttribute('alt') || node.getAttribute('title') || node.getAttribute('id') || node.getAttribute('name') || node.getAttribute('placeholder') || node && node.value || '';
   return txt.length > 250 ? txt.substring(0, 247) + '...' : txt;
 }
 
