@@ -17,7 +17,8 @@ export class PrevComponent implements OnChanges {
 
   public ngOnChanges() {
     const events = <ReportRow[]>this.data
-      .filter(item => this.click.ea.indexOf(item.eventAction) === 0)
+      // .filter(item => this.click.ea.indexOf(item.eventAction) === 0)
+      .filter(item => this.click.ea === item.eventAction) // EXPERIMENT: only for this page
       .map((event: ReportRow): ReportRow => this.findPrev(event));
 
     this.processed = countEvents(events);

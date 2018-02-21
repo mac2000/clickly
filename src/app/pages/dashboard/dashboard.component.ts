@@ -141,7 +141,8 @@ export class DashboardComponent implements OnInit {
         dimensions: ['eventCategory', 'eventAction', 'eventLabel', 'dimension1', 'dimension2'],
         filters: and(
           dimension('dimension4').exactMatch(data.cd4),
-          dimension('deviceCategory').exactMatch('desktop')
+          dimension('deviceCategory').exactMatch('desktop'),
+          dimension('eventCategory').exactMatch(data.ec) // EXPERIMENT: only for this page
         )
       })
       .pipe(

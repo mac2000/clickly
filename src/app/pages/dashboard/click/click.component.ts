@@ -15,7 +15,8 @@ export class ClickComponent implements OnChanges {
 
   public ngOnChanges() {
     const data = this.data
-      .filter(item => this.click.ea.indexOf(item.eventAction) === 0);
+      .filter(item => this.click.ea === item.eventAction); // EXPERIMENT: only for this page
+      // .filter(item => this.click.ea.indexOf(item.eventAction) === 0);
 
     this.users = Array.from(new Set(data.map(d => d.clientId))).length;
     this.clicks = data.filter(item => item.eventAction !== 'view').length;
