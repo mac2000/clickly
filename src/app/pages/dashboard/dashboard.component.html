@@ -39,7 +39,29 @@
     </mat-card>
 
     <mat-card *ngIf="data" style="padding: 0">
-      <mat-tab-group [selectedIndex]="click ? 2 : 0">
+      <mat-tab-group [selectedIndex]="click ? 3 : 0">
+        <mat-tab label="Top" *ngIf="top.length > 0">
+          <div style="padding:24px">
+            <div *ngFor="let item of top.slice(0, 50)">
+              <div>
+                {{item[1]}}
+                <ol>
+                  <li *ngFor="let part of item[0].split(' -> ')">
+                    <span *ngIf="part !== 'view'">
+                      <button mat-icon-button color="primary" (click)="onTopClick(part)">
+                        <mat-icon aria-label="Highlight">search</mat-icon>
+                      </button>
+                      <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
+                        <mat-icon aria-label="Mouse">mouse</mat-icon>
+                      </button>
+                    </span>
+                    {{part}}
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
         <mat-tab label="First">
           <div style="padding:24px">
             <app-first [data]="data" (highlight)="onHighlight($event)" (emulate)="onEmulate($event)"></app-first>

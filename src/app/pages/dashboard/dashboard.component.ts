@@ -8,6 +8,7 @@ import {FormControl} from '@angular/forms';
 import {and, dimension, GaService} from '../../../gapi/ga/ga.service';
 import {Observable} from 'rxjs/Observable';
 import {AggregatedEvent} from './utils';
+import {HttpClient} from "@angular/common/http";
 
 const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 2));
 const defaultEndDate = new Date(new Date().setDate(new Date().getDate() - 1));
@@ -30,6 +31,8 @@ export class DashboardComponent implements OnInit {
   public data: ReportRow[] | null;
   public click: ClicklyMessage | null;
 
+  public top: any[] = [];
+
   @ViewChild('frame') public frame: ElementRef;
 
   public constructor(private activatedRoute: ActivatedRoute,
@@ -37,6 +40,7 @@ export class DashboardComponent implements OnInit {
                      private gaService: GaService,
                      private router: Router,
                      private zone: NgZone,
+                     private http: HttpClient,
                      private changeDetectorRef: ChangeDetectorRef,
                      private applicationRef: ApplicationRef,
                      private sanitizer: DomSanitizer) {
@@ -93,6 +97,14 @@ export class DashboardComponent implements OnInit {
     }, 5000);
   }
 
+  public onTopClick(selector: string) {
+    this.postMessage('highlight', {selector});
+  }
+
+  public onTopEmulate(selector: string) {
+    this.postMessage('emulate', {selector});
+  }
+
   public onHighlight(event: AggregatedEvent) {
     this.postMessage('highlight', {selector: event.name});
   }
@@ -129,6 +141,14 @@ export class DashboardComponent implements OnInit {
       console.error(error);
       this.loading = false;
     });
+    this.http.get('https://clicklyapi.marchenko.net.ua/api', {
+      params: {
+        id: this.profile.profileId,
+        url: data.ec,
+        start_date: (this.startDate.value || defaultStartDate).toISOString().split('T').shift() || '',
+        end_date: (this.endDate.value || defaultEndDate).toISOString().split('T').shift() || ''
+      }
+    }).subscribe((res: any[]) => this.top = res);
   }
 
   private getData(data: NavigatedMessage): Observable<ReportRow[]> {
