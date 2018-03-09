@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   public click: ClicklyMessage | null;
 
   public top: any[] = [];
+  public topClick: any[] = [];
 
   @ViewChild('frame') public frame: ElementRef;
 
@@ -148,7 +149,11 @@ export class DashboardComponent implements OnInit {
         start_date: (this.startDate.value || defaultStartDate).toISOString().split('T').shift() || '',
         end_date: (this.endDate.value || defaultEndDate).toISOString().split('T').shift() || ''
       }
-    }).subscribe((res: any[]) => this.top = res);
+    }).subscribe((res: any[]) => {
+      console.log(res);
+      this.top = res;
+      window['res'] = res;
+    });
   }
 
   private getData(data: NavigatedMessage): Observable<ReportRow[]> {
@@ -180,6 +185,7 @@ export class DashboardComponent implements OnInit {
   private onClick(click: ClickMessage) {
     console.log('CLICK', click);
     this.click = click;
+    this.topClick = this.top.filter(r => r[0].indexOf(click.ea) !== -1);
   }
 
 

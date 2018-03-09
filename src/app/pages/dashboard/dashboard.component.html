@@ -79,6 +79,29 @@
               <p>Turn of inspect mode and select something</p>
             </div>
 
+            <div *ngIf="click && topClick.length">
+              <p><b>Top Sequences with this Item</b></p>
+              <div *ngFor="let item of topClick.slice(0, 5)">
+                <div>
+                  <p>{{item[1]}} occurrences</p>
+                  <ol>
+                    <li *ngFor="let part of item[0].split(' -> ')">
+                    <span *ngIf="part !== 'view'">
+                      <button mat-icon-button color="primary" (click)="onTopClick(part)">
+                        <mat-icon aria-label="Highlight">search</mat-icon>
+                      </button>
+                      <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
+                        <mat-icon aria-label="Mouse">mouse</mat-icon>
+                      </button>
+                    </span>
+                      {{part}}
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <hr/>
+            </div>
+
             <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
                       (emulate)="onEmulate($event)"></app-prev>
             <app-click *ngIf="click" [data]="data" [click]="click"></app-click>
