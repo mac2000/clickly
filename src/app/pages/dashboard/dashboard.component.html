@@ -40,26 +40,38 @@
 
     <mat-card *ngIf="data" style="padding: 0">
       <mat-tab-group [selectedIndex]="click ? 3 : 0">
-        <mat-tab label="Top" *ngIf="top.length > 0">
+        <mat-tab label="Top 50" *ngIf="top.length > 0">
           <div style="padding:24px">
-            <div *ngFor="let item of top.slice(0, 50)">
-              <div>
-                {{item[1]}}
-                <ol>
-                  <li *ngFor="let part of item[0].split(' -> ')">
-                    <span *ngIf="part !== 'view'">
-                      <button mat-icon-button color="primary" (click)="onTopClick(part)">
-                        <mat-icon aria-label="Highlight">search</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
-                        <mat-icon aria-label="Mouse">mouse</mat-icon>
-                      </button>
-                    </span>
-                    {{part}}
-                  </li>
-                </ol>
-              </div>
-            </div>
+            <table class="tbl">
+              <thead>
+              <tr>
+                <th>Sequence</th>
+                <th width="1" nowrap>Count</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of top.slice(0, 50)">
+                  <td valign="top">
+                    <ol style="margin-top: 0;margin-bottom: 0;padding-left: 20px;">
+                      <li *ngFor="let part of item[0].split(' -> ')">
+                        <div title="{{part}}" style="max-width: 400px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;">
+                          <span *ngIf="part !== 'view'">
+                            <button mat-icon-button color="primary" (click)="onTopClick(part)">
+                              <mat-icon aria-label="Highlight">search</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
+                              <mat-icon aria-label="Mouse">mouse</mat-icon>
+                            </button>
+                          </span>
+                          {{part}}
+                        </div>
+                      </li>
+                    </ol>
+                  </td>
+                  <td valign="top" align="right">{{item[1]}}</td>
+              </tr>
+            </tbody>
+            </table>
           </div>
         </mat-tab>
         <mat-tab label="First">
@@ -80,33 +92,44 @@
             </div>
 
             <div *ngIf="click && topClick.length">
-              <p><b>Top Sequences with this Item</b></p>
-              <div *ngFor="let item of topClick.slice(0, 5)">
-                <div>
-                  <p>{{item[1]}} occurrences</p>
-                  <ol>
-                    <li *ngFor="let part of item[0].split(' -> ')">
-                    <span *ngIf="part !== 'view'">
-                      <button mat-icon-button color="primary" (click)="onTopClick(part)">
-                        <mat-icon aria-label="Highlight">search</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
-                        <mat-icon aria-label="Mouse">mouse</mat-icon>
-                      </button>
-                    </span>
-                      {{part}}
-                    </li>
-                  </ol>
-                </div>
-              </div>
-              <hr/>
+              <p style="text-align: center"><b>Top 5 Sequences With Inspected Item</b></p>
+              <table class="tbl">
+                <thead>
+                <tr>
+                  <th>Sequence</th>
+                  <th width="1" nowrap>Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of topClick.slice(0, 50)">
+                  <td valign="top">
+                    <ol style="margin-top: 0;margin-bottom: 0;padding-left: 20px;">
+                      <li *ngFor="let part of item[0].split(' -> ')">
+                        <div title="{{part}}" style="max-width: 400px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;">
+                          <span *ngIf="part !== 'view'">
+                            <button mat-icon-button color="primary" (click)="onTopClick(part)">
+                              <mat-icon aria-label="Highlight">search</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="onTopEmulate(part)">
+                              <mat-icon aria-label="Mouse">mouse</mat-icon>
+                            </button>
+                          </span>
+                          {{part}}
+                        </div>
+                      </li>
+                    </ol>
+                  </td>
+                  <td valign="top" align="right">{{item[1]}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
 
-            <app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
-                      (emulate)="onEmulate($event)"></app-prev>
+            <!--<app-prev *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"-->
+                      <!--(emulate)="onEmulate($event)"></app-prev>-->
             <app-click *ngIf="click" [data]="data" [click]="click"></app-click>
-            <app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"
-                      (emulate)="onEmulate($event)"></app-next>
+            <!--<app-next *ngIf="click && data" [data]="data" [click]="click" (highlight)="onHighlight($event)"-->
+                      <!--(emulate)="onEmulate($event)"></app-next>-->
 
           </div>
         </mat-tab>
