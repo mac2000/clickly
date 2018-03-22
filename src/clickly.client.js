@@ -12,7 +12,7 @@ function isClicklyMessage(event) {
   return event && event.data && event.data.clickly;
 }
 
-function postMessage(action, payload) {
+function clicklyPostMessage(action, payload) {
   if (!action || !parent) {
     return;
   }
