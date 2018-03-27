@@ -1,3 +1,4 @@
+cconsole.log('clickly client loaded');
 function isInFrame() {
   try {
     return window.self !== window.top;
@@ -17,7 +18,7 @@ function clicklyPostMessage(action, payload) {
     return;
   }
 
-  parent.postMessage(Object.assign({}, payload || {}, {action: action, clickly: true}), '*');
+  top.postMessage(Object.assign({}, payload || {}, {action: action, clickly: true}), '*');
 }
 
 function onMessage(action, callback) {
@@ -142,9 +143,11 @@ function collector(event) {
   }
 }
 
+cconsole.log('clickly isInFrame', isInFrame());
 if (isInFrame()) {
   injectStylesheet();
 
+  cconsole.log('sending navigated message');
   clicklyPostMessage('navigated', {
     ec: window.location.toString(),
     el: document.title,
