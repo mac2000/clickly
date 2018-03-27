@@ -97,7 +97,7 @@ function onClick(event) {
   event.stopPropagation();
   if (event.type !== 'click') return;
   clearHighlight();
-  postMessage('click', {
+  clicklyPostMessage('click', {
     ec: window.location.toString(),
     ea: getNodeSelector(event.target),
     el: getNodeText(event.target),
@@ -145,7 +145,7 @@ function collector(event) {
 if (isInFrame()) {
   injectStylesheet();
 
-  postMessage('navigated', {
+  clicklyPostMessage('navigated', {
     ec: window.location.toString(),
     el: document.title,
     cd4: typeof window['clicklyGetPageType'] !== 'undefined' ? window['clicklyGetPageType']() : innerGetPageType()
