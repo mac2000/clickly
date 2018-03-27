@@ -1,4 +1,4 @@
-cconsole.log('clickly client loaded');
+console.log('clickly client loaded');
 function isInFrame() {
   try {
     return window.self !== window.top;
@@ -143,11 +143,11 @@ function collector(event) {
   }
 }
 
-cconsole.log('clickly isInFrame', isInFrame());
+console.log('clickly isInFrame', isInFrame());
 if (isInFrame()) {
   injectStylesheet();
 
-  cconsole.log('sending navigated message');
+  console.log('sending navigated message');
   clicklyPostMessage('navigated', {
     ec: window.location.toString(),
     el: document.title,
